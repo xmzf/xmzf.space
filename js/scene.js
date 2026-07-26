@@ -23,6 +23,10 @@ export class Scene3D {
         this._hovering = false;
         this._interactable = false; // enabled after hero reveals
 
+        // Mobile / low-power detection. Drives camera framing, pixel ratio
+        // and shadow quality so phones don't melt and the tower stays on-screen.
+        this._isMobile = this._detectMobile();
+
         this._initRenderer();
         this._initScene();
         this._initLights();
@@ -34,7 +38,7 @@ export class Scene3D {
         this._onPointer = this._onPointer.bind(this);
         this._onClick = this._onClick.bind(this);
         window.addEventListener('resize', this._onResize);
-        window.addEventListener('pointermove', this._onPointer);
+        window.addEventListener('pointermove', this._onPointer, { passive: true });
         window.addEventListener('click', this._onClick);
         this._onResize();
 
@@ -46,37 +50,58 @@ export class Scene3D {
         requestAnimationFrame(() => { this.ready = true; });
     }
 
+    _detectMobile() {
+        const ua = navigator.userAgent || '';
+        const touch = (('ontouchstart' in window) || navigator.maxTouchPoints > 0);
+        const small = window.innerWidth <= 820;
+        // Explicit mobile UA OR a small+touch screen. Tablets included.
+        return /Android|iPhone|iPad|iPod|Mobile|CriOS|FxiOS/i.test(ua) || (small && touch);
+    }
+
     _initRenderer() {
         this.renderer = new THREE.WebGLRenderer({
             canvas: this.canvas,
-            antialias: true,
+            antialias: !this._isMobile, // AA is expensive on phones; rely on DPR cap
             alpha: true,
             powerPreference: 'high-performance',
         });
-        this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        // Phones: cap DPR hard at 1.5 to avoid 4x fill-rate cost. Desktop keeps 2.
+        const dprCap = this._isMobile ? 1.5 : 2;
+        this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, dprCap));
         this.renderer.outputColorSpace = THREE.SRGBColorSpace;
         this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
         this.renderer.toneMappingExposure = 1.05;
         this.renderer.shadowMap.enabled = true;
-        this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        // PCFSoft is costly; mobile uses basic PCF (still soft enough, far cheaper).
+        this.renderer.shadowMap.type = this._isMobile
+            ? THREE.PCFShadowMap
+            : THREE.PCFSoftShadowMap;
     }
 
     _initScene() {
         this.scene = new THREE.Scene();
         this.scene.background = null;
-        this.scene.fog = new THREE.FogExp2(0x07080a, 0.045);
+        // Mobile uses a lighter fog so the scene reads as less muddy on small screens
+        this.scene.fog = new THREE.FogExp2(0x07080a, this._isMobile ? 0.03 : 0.045);
 
-        // camera
-        this.camera = new THREE.PerspectiveCamera(34, 1, 0.1, 100);
-        this.camera.position.set(0, 0.35, 8.2);
-        this.camera.lookAt(0, 0.12, 0);
+        // camera — wider FOV + pulled back on mobile so the tower stays in frame
+        const fov = this._isMobile ? 50 : 34;
+        this.camera = new THREE.PerspectiveCamera(fov, 1, 0.1, 100);
+        if (this._isMobile) {
+            this.camera.position.set(0, 0.55, 9.5);
+            this.camera.lookAt(0, 0.25, 0);
+        } else {
+            this.camera.position.set(0, 0.35, 8.2);
+            this.camera.lookAt(0, 0.12, 0);
+        }
     }
 
     _initLights() {
         const key = new THREE.DirectionalLight(0xffffff, 2.2);
         key.position.set(3.5, 5, 4);
         key.castShadow = true;
-        key.shadow.mapSize.set(2048, 2048);
+        // 1024 on mobile is plenty at small sizes and halves shadow cost
+        key.shadow.mapSize.set(this._isMobile ? 1024 : 2048, this._isMobile ? 1024 : 2048);
         key.shadow.camera.near = 0.5;
         key.shadow.camera.far = 20;
         key.shadow.camera.left = -4;
@@ -85,7 +110,7 @@ export class Scene3D {
         key.shadow.camera.bottom = -3;
         key.shadow.bias = -0.0002;
         key.shadow.normalBias = 0.02;
-        key.shadow.radius = 4;
+        key.shadow.radius = this._isMobile ? 2 : 4;
         this.scene.add(key);
         this.keyLight = key;
 
@@ -311,8 +336,14 @@ export class Scene3D {
         // ---- PC tower (vAI sub-studio portal) ----
         this._buildTower(group);
 
-        // center the whole rig
-        group.position.y = -0.35;
+        // center the whole rig. On mobile, scale down slightly + sit lower
+        // so the wider-FOV camera captures both monitor and tower cleanly.
+        if (this._isMobile) {
+            group.scale.setScalar(0.82);
+            group.position.y = -0.55;
+        } else {
+            group.position.y = -0.35;
+        }
         this.scene.add(group);
         this.computer = group;
     }
@@ -426,8 +457,13 @@ export class Scene3D {
 
         // Position: to the right of the monitor, front face angled toward camera.
         // World coords after parent group shifts y by -0.35.
-        // place tower to the right of the monitor with a clear gap
-        tower.position.set(1.75, 0.0, 0.55);
+        // On mobile the camera is pulled back + wider FOV, but we also nudge
+        // the tower slightly closer to the monitor so it stays composited well.
+        if (this._isMobile) {
+            tower.position.set(1.55, 0.0, 0.6);
+        } else {
+            tower.position.set(1.75, 0.0, 0.55);
+        }
         tower.rotation.y = -0.15;
         parent.add(tower);
 
@@ -756,17 +792,31 @@ export class Scene3D {
         return { left, top, width, height, cx: (ax + bx) / 2, cy: (ay + by) / 2 };
     }
 
+    // Pause/resume rendering. Called by app.js when the hero scrolls out of
+    // view — stops the RAF loop so the GPU idles while reading sections.
+    setPaused(p) {
+        this._paused = p;
+        if (!p && !this._running) {
+            this._running = true;
+            this._animate();
+        }
+    }
+
     _animate() {
+        if (this._paused) { this._running = false; return; }
+        this._running = true;
         requestAnimationFrame(this._animate);
         const t = this._clock.getElapsedTime();
 
         // gentle idle — only when computer is visible / settled
         if (this.computer) {
-            // smooth pointer parallax
-            this.computer.rotation.y += (this._targetRot.y - this.computer.rotation.y) * 0.04;
-            this.computer.rotation.x += (this._targetRot.x - this.computer.rotation.x) * 0.04;
-            // subtle float
-            this.computer.position.y = -0.35 + Math.sin(t * 0.6) * 0.015;
+            // smooth pointer parallax (lighter lerp on mobile to reduce churn)
+            const lerp = this._isMobile ? 0.025 : 0.04;
+            this.computer.rotation.y += (this._targetRot.y - this.computer.rotation.y) * lerp;
+            this.computer.rotation.x += (this._targetRot.x - this.computer.rotation.x) * lerp;
+            // subtle float around the base position set in _buildComputer
+            const baseY = this._isMobile ? -0.55 : -0.35;
+            this.computer.position.y = baseY + Math.sin(t * 0.6) * 0.015;
         }
 
         // vAI tower: idle breathing glow + hover pulse
