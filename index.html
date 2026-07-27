@@ -10,7 +10,7 @@
     <meta name="keywords" content="XMZF, XMZF Studio, 创意工作室, 设计工作室, 交互设计, 品牌设计, 3D, Three.js, WebGL, 数字体验, creative studio, design studio" />
     <meta name="author" content="XMZF Studio" />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-    <meta name="theme-color" content="#07080a" />
+    <meta name="theme-color" content="#010101" />
     <meta name="color-scheme" content="dark" />
     <link rel="canonical" href="https://xmzf.space/" />
 
@@ -43,11 +43,15 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://unpkg.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Playfair+Display:ital,wght@0,900;1,900&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Playfair+Display:ital,wght@0,900;1,900&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Playfair+Display:ital,wght@0,900;1,900&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet" /></noscript>
     <link rel="stylesheet" href="css/style.css" />
 
-    <!-- Preload main 3D module so the browser fetches it in parallel with fonts/CSS -->
+    <!-- Preload the whole module chain so the browser fetches everything in parallel -->
     <link rel="modulepreload" href="https://unpkg.com/three@0.160.0/build/three.module.js" />
+    <link rel="modulepreload" href="https://unpkg.com/three@0.160.0/examples/jsm/environments/RoomEnvironment.js" />
+    <link rel="modulepreload" href="js/terminal.js" />
+    <link rel="modulepreload" href="js/scene.js" />
     <link rel="modulepreload" href="js/app.js" />
 
     <!-- Structured data: Organization + WebSite -->

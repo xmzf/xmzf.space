@@ -81,7 +81,7 @@ export class Scene3D {
         this.scene = new THREE.Scene();
         this.scene.background = null;
         // Mobile uses a lighter fog so the scene reads as less muddy on small screens
-        this.scene.fog = new THREE.FogExp2(0x07080a, this._isMobile ? 0.03 : 0.045);
+        this.scene.fog = new THREE.FogExp2(0x010101, this._isMobile ? 0.03 : 0.045);
 
         // camera — wider FOV + pulled back on mobile so the tower stays in frame.
         // We also shift the camera slightly left so the (right-placed) tower is
