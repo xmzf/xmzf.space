@@ -165,13 +165,20 @@ import { Scene3D } from './scene.js';
     let scrollHandled = false;
     function onScroll() {
         const y = window.scrollY || window.pageYOffset;
-        const threshold = window.innerHeight * 0.85;
+        const threshold = window.innerHeight * 0.55;
         if (y > threshold && !scrollHandled) {
             scrollHandled = true;
             canvas.classList.add('is-scrolling-away');
+            // pause 3D rendering while reading scroll panels (mobile perf)
+            if (scene3d && typeof scene3d.setPaused === 'function') {
+                scene3d.setPaused(true);
+            }
         } else if (y <= threshold && scrollHandled) {
             scrollHandled = false;
             canvas.classList.remove('is-scrolling-away');
+            if (scene3d && typeof scene3d.setPaused === 'function') {
+                scene3d.setPaused(false);
+            }
         }
     }
     window.addEventListener('scroll', onScroll, { passive: true });

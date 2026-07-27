@@ -84,12 +84,14 @@ export class Scene3D {
         // Mobile uses a lighter fog so the scene reads as less muddy on small screens
         this.scene.fog = new THREE.FogExp2(0x07080a, this._isMobile ? 0.03 : 0.045);
 
-        // camera — wider FOV + pulled back on mobile so the tower stays in frame
-        const fov = this._isMobile ? 50 : 34;
+        // camera — wider FOV + pulled back on mobile so the tower stays in frame.
+        // We also shift the camera slightly left so the (right-placed) tower is
+        // centered in the composition instead of being pushed to the edge.
+        const fov = this._isMobile ? 54 : 34;
         this.camera = new THREE.PerspectiveCamera(fov, 1, 0.1, 100);
         if (this._isMobile) {
-            this.camera.position.set(0, 0.55, 9.5);
-            this.camera.lookAt(0, 0.25, 0);
+            this.camera.position.set(-0.65, 0.45, 10.2);
+            this.camera.lookAt(0.55, 0.28, 0);
         } else {
             this.camera.position.set(0, 0.35, 8.2);
             this.camera.lookAt(0, 0.12, 0);
@@ -336,11 +338,13 @@ export class Scene3D {
         // ---- PC tower (vAI sub-studio portal) ----
         this._buildTower(group);
 
-        // center the whole rig. On mobile, scale down slightly + sit lower
-        // so the wider-FOV camera captures both monitor and tower cleanly.
+        // center the whole rig. On mobile keep the scale a bit larger and
+        // position the rig so both monitor and tower read clearly in the
+        // shifted/wide camera. The tower is on the right, so we nudge the
+        // whole group slightly left to balance the frame.
         if (this._isMobile) {
-            group.scale.setScalar(0.82);
-            group.position.y = -0.55;
+            group.scale.setScalar(0.9);
+            group.position.set(-0.45, -0.48, 0);
         } else {
             group.position.y = -0.35;
         }
@@ -456,11 +460,10 @@ export class Scene3D {
         });
 
         // Position: to the right of the monitor, front face angled toward camera.
-        // World coords after parent group shifts y by -0.35.
-        // On mobile the camera is pulled back + wider FOV, but we also nudge
-        // the tower slightly closer to the monitor so it stays composited well.
+        // On mobile the whole rig is shifted left; keep the tower at the same
+        // relative local offset so it remains clearly separated from the monitor.
         if (this._isMobile) {
-            tower.position.set(1.55, 0.0, 0.6);
+            tower.position.set(1.65, 0.0, 0.55);
         } else {
             tower.position.set(1.75, 0.0, 0.55);
         }
