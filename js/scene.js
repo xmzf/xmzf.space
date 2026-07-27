@@ -91,10 +91,10 @@ export class Scene3D {
         const fov = this._isMobile ? 54 : 34;
         this.camera = new THREE.PerspectiveCamera(fov, 1, 0.1, 100);
         if (this._isMobile) {
-            this.camera.position.set(-0.65, 1.15, 10.2);
-            this.camera.lookAt(0.55, 0.95, 0);
+            this.camera.position.set(-0.45, 1.55, 9.2);
+            this.camera.lookAt(0.35, 0.78, 0);
         } else {
-            this.camera.position.set(0, 1.05, 8.2);
+            this.camera.position.set(0, 1.45, 7.6);
             this.camera.lookAt(0, 0.82, 0);
         }
     }
@@ -350,7 +350,8 @@ export class Scene3D {
             group.scale.setScalar(0.9);
             group.position.set(-0.45, -0.1, 0);
         } else {
-            group.position.y = -0.1;
+            group.scale.setScalar(1.0);
+            group.position.y = -0.2;
         }
         this.scene.add(group);
         this.computer = group;
@@ -367,30 +368,34 @@ export class Scene3D {
             color: 0x0d0e11, metalness: 0.85, roughness: 0.4, envMapIntensity: 0.8,
         });
 
-        // desktop slab
-        const topGeo = new THREE.BoxGeometry(3.6, 0.04, 1.2);
+        // desktop slab — make it deep enough and positioned to show on screen
+        const topGeo = new THREE.BoxGeometry(3.6, 0.04, 1.35);
         const top = new THREE.Mesh(topGeo, deskMat);
-        top.position.set(0, 0.33, 0);
+        top.position.set(0, 0.33, 0.22);
         top.castShadow = true;
         top.receiveShadow = true;
         parent.add(top);
 
         // 4 legs
-        const legGeo = new THREE.BoxGeometry(0.06, 0.31, 0.06);
-        const fx = 1.72, fz = 0.54;
+        const legGeo = new THREE.BoxGeometry(0.07, 0.32, 0.07);
+        const fx = 1.72, fz = 0.62;
         [[fx, fz], [-fx, fz], [fx, -fz], [-fx, -fz]].forEach(([x, z]) => {
             const leg = new THREE.Mesh(legGeo, legMat);
-            leg.position.set(x, 0.155, z);
+            leg.position.set(x, 0.155, z + 0.22);
             leg.castShadow = true;
             parent.add(leg);
         });
 
-        // back stabilizer beam
+        // side stabilizer beams (front + back) so the legs read clearly
         const beamGeo = new THREE.BoxGeometry(3.3, 0.04, 0.04);
-        const beam = new THREE.Mesh(beamGeo, legMat);
-        beam.position.set(0, 0.12, -0.5);
-        beam.castShadow = true;
-        parent.add(beam);
+        const beamBack = new THREE.Mesh(beamGeo, legMat);
+        beamBack.position.set(0, 0.12, -0.42 + 0.22);
+        beamBack.castShadow = true;
+        parent.add(beamBack);
+        const beamFront = new THREE.Mesh(beamGeo, legMat);
+        beamFront.position.set(0, 0.12, 0.40 + 0.22);
+        beamFront.castShadow = true;
+        parent.add(beamFront);
     }
 
     // Build a refined PC tower with tempered-glass side panel
@@ -859,7 +864,7 @@ export class Scene3D {
             this.computer.rotation.y += (this._targetRot.y - this.computer.rotation.y) * lerp;
             this.computer.rotation.x += (this._targetRot.x - this.computer.rotation.x) * lerp;
             // subtle float around the base position set in _buildComputer
-            const baseY = -0.1;
+            const baseY = -0.2;
             this.computer.position.y = baseY + Math.sin(t * 0.6) * 0.015;
         }
 
