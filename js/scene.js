@@ -32,7 +32,6 @@ export class Scene3D {
         this._initLights();
         this._buildComputer();
         this._buildEnvironment();
-        this._buildScreenTexture();
 
         this._onResize = this._onResize.bind(this);
         this._onPointer = this._onPointer.bind(this);
@@ -95,7 +94,7 @@ export class Scene3D {
             this.camera.lookAt(0.35, 0.78, 0);
         } else {
             this.camera.position.set(0, 1.45, 7.6);
-            this.camera.lookAt(0, 0.82, 0);
+            this.camera.lookAt(0, 0.55, 0);
         }
     }
 
@@ -360,12 +359,13 @@ export class Scene3D {
     // Build a refined desk surface + four legs so the hero reads as a
     // workspace rather than a floating rig.
     _buildDesk(parent) {
+        // warmer, brighter wood-ish desk so it reads against the dark bg
         const deskMat = new THREE.MeshPhysicalMaterial({
-            color: 0x15171c, metalness: 0.5, roughness: 0.55,
-            envMapIntensity: 0.7, clearcoat: 0.25, clearcoatRoughness: 0.6,
+            color: 0x3a2e22, metalness: 0.1, roughness: 0.62,
+            envMapIntensity: 0.6, clearcoat: 0.3, clearcoatRoughness: 0.55,
         });
         const legMat = new THREE.MeshPhysicalMaterial({
-            color: 0x0d0e11, metalness: 0.85, roughness: 0.4, envMapIntensity: 0.8,
+            color: 0x1a1c20, metalness: 0.85, roughness: 0.4, envMapIntensity: 0.8,
         });
 
         // desktop slab — make it deep enough and positioned to show on screen
@@ -595,9 +595,6 @@ export class Scene3D {
         return tex;
     }
 
-    _buildScreenTexture() {
-        // already created in build, but keep helper for switching states
-    }
 
     _makeScreenTexture(state) {
         const c = document.createElement('canvas');
@@ -728,25 +725,7 @@ export class Scene3D {
     // Enable portal hover/click after the hero has settled
     enableInteraction() { this._interactable = true; }
 
-    // cheap box bevel: shift corner verts inward
-    _bevelBox(geo, amount) {
-        const pos = geo.attributes.position;
-        const v = new THREE.Vector3();
-        for (let i = 0; i < pos.count; i++) {
-            v.fromBufferAttribute(pos, i);
-            // find if this vertex is near a corner on x/z
-            const ax = Math.abs(Math.abs(v.x) - 1.31);
-            const ay = Math.abs(Math.abs(v.y) - 0.76);
-            // only bevel the front/back face edges softly
-            // (kept minimal — full chamfer needs a geometry lib)
-        }
-        geo.computeVertexNormals();
-    }
 
-    _flatten(geo, axis, factor) {
-        // no-op placeholder; cylinder already flat
-        geo.computeVertexNormals();
-    }
 
     _onResize() {
         const w = window.innerWidth;
