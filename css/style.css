@@ -547,6 +547,28 @@ a { color: inherit; text-decoration: none; }
     font-style: italic;
 }
 
+/* inline CTA link used inside panels (e.g. vAI portal on Studio) */
+.panel__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+    padding: 10px 14px;
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    font-size: 13px;
+    color: var(--ink);
+    transition: border-color 0.3s var(--ease), color 0.3s var(--ease);
+}
+.panel__cta:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+.panel__cta a {
+    color: inherit;
+    border-bottom: none;
+}
+
 /* contact email block */
 .contact-email {
     display: flex;
