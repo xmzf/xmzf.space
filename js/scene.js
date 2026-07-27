@@ -87,14 +87,15 @@ export class Scene3D {
         // camera — wider FOV + pulled back on mobile so the tower stays in frame.
         // We also shift the camera slightly left so the (right-placed) tower is
         // centered in the composition instead of being pushed to the edge.
+        // Desk raises the rig, so the camera looks higher than before.
         const fov = this._isMobile ? 54 : 34;
         this.camera = new THREE.PerspectiveCamera(fov, 1, 0.1, 100);
         if (this._isMobile) {
-            this.camera.position.set(-0.65, 0.45, 10.2);
-            this.camera.lookAt(0.55, 0.28, 0);
+            this.camera.position.set(-0.65, 1.15, 10.2);
+            this.camera.lookAt(0.55, 0.95, 0);
         } else {
-            this.camera.position.set(0, 0.35, 8.2);
-            this.camera.lookAt(0, 0.12, 0);
+            this.camera.position.set(0, 1.05, 8.2);
+            this.camera.lookAt(0, 0.82, 0);
         }
     }
 
@@ -180,15 +181,18 @@ export class Scene3D {
             envMapIntensity: 1.0,
         });
 
+        // rig subgroup holds everything that sits on the desk surface,
+        // so we can lift it as a unit when we add the desk.
+        const rig = new THREE.Group();
+        rig.name = 'rig';
+
         // ---- monitor back shell (slightly tapered) ----
         const backGeo = new THREE.BoxGeometry(2.62, 1.52, 0.13, 4, 4, 1);
-        // round corners by chamfering verts (cheap bevel via vertex shift)
-        this._bevelBox(backGeo, 0.025);
         const back = new THREE.Mesh(backGeo, aluMat);
         back.position.set(0, 0.95, -0.07);
         back.castShadow = true;
         back.receiveShadow = true;
-        group.add(back);
+        rig.add(back);
 
         // ---- back camera bump (apple-ish) ----
         const bumpGeo = new THREE.CylinderGeometry(0.08, 0.09, 0.02, 32);
@@ -196,7 +200,7 @@ export class Scene3D {
         bump.rotation.x = Math.PI / 2;
         bump.position.set(0, 0.95, -0.145);
         bump.castShadow = true;
-        group.add(bump);
+        rig.add(bump);
 
         // tiny back logo engraved (use a small dark circle)
         const logoGeo = new THREE.CircleGeometry(0.06, 32);
@@ -205,15 +209,14 @@ export class Scene3D {
         });
         const logo = new THREE.Mesh(logoGeo, logoMat);
         logo.position.set(0, 0.95, -0.137);
-        group.add(logo);
+        rig.add(logo);
 
         // ---- front bezel frame (thin, dark) ----
         const bezelGeo = new THREE.BoxGeometry(2.62, 1.52, 0.02);
-        this._bevelBox(bezelGeo, 0.02);
         const bezel = new THREE.Mesh(bezelGeo, bezelMat);
         bezel.position.set(0, 0.95, 0.0);
         bezel.receiveShadow = true;
-        group.add(bezel);
+        rig.add(bezel);
 
         // ---- screen (emissive plane) ----
         const screenGeo = new THREE.PlaneGeometry(2.42, 1.34);
@@ -224,7 +227,7 @@ export class Scene3D {
         });
         const screen = new THREE.Mesh(screenGeo, screenMat);
         screen.position.set(0, 0.95, 0.012);
-        group.add(screen);
+        rig.add(screen);
         this.screenMesh = screen;
         this.screenMat = screenMat;
 
@@ -232,42 +235,40 @@ export class Scene3D {
         const glassGeo = new THREE.PlaneGeometry(2.5, 1.42);
         const glass = new THREE.Mesh(glassGeo, glassMat);
         glass.position.set(0, 0.95, 0.015);
-        group.add(glass);
+        rig.add(glass);
 
         // ---- stand neck ----
         const neckGeo = new THREE.CylinderGeometry(0.045, 0.06, 0.9, 48);
         const neck = new THREE.Mesh(neckGeo, aluMat);
         neck.position.set(0, 0.45, -0.13);
         neck.castShadow = true;
-        group.add(neck);
+        rig.add(neck);
 
         // neck-to-monitor joint (a small rounded cap)
         const jointGeo = new THREE.CylinderGeometry(0.09, 0.07, 0.08, 32);
         const joint = new THREE.Mesh(jointGeo, aluDarkMat);
         joint.position.set(0, 0.85, -0.1);
         joint.castShadow = true;
-        group.add(joint);
+        rig.add(joint);
 
         // ---- stand base (flat oval disc) ----
         const baseGeo = new THREE.CylinderGeometry(0.55, 0.6, 0.025, 64);
-        this._flatten(baseGeo, 'y', 1);
         const base = new THREE.Mesh(baseGeo, aluMat);
         base.position.set(0, 0.02, -0.13);
         base.castShadow = true;
         base.receiveShadow = true;
-        group.add(base);
+        rig.add(base);
 
         // base rim highlight (a thin torus on the edge)
         const rimGeo = new THREE.TorusGeometry(0.58, 0.005, 12, 64);
         const rimMesh = new THREE.Mesh(rimGeo, aluDarkMat);
         rimMesh.rotation.x = Math.PI / 2;
         rimMesh.position.set(0, 0.035, -0.13);
-        group.add(rimMesh);
+        rig.add(rimMesh);
 
         // ---- keyboard ----
         const kbGroup = new THREE.Group();
         const kbBaseGeo = new THREE.BoxGeometry(2.1, 0.06, 0.62);
-        this._bevelBox(kbBaseGeo, 0.015);
         const kbBase = new THREE.Mesh(kbBaseGeo, aluMat);
         kbBase.castShadow = true;
         kbBase.receiveShadow = true;
@@ -292,9 +293,7 @@ export class Scene3D {
         let i = 0;
         for (let r = 0; r < rows; r++) {
             for (let c = 0; c < cols; c++) {
-                // skip a few to mimic function row / gaps
                 dummy.position.set(startX + c * spacing, 0.04, startZ + r * rowSpacing);
-                // slight tilt of keyboard
                 dummy.rotation.x = -0.04;
                 dummy.updateMatrix();
                 keys.setMatrixAt(i, dummy.matrix);
@@ -314,7 +313,27 @@ export class Scene3D {
 
         kbGroup.position.set(0, 0.05, 1.35);
         kbGroup.rotation.x = -0.12;
-        group.add(kbGroup);
+        rig.add(kbGroup);
+
+        // subtle desk-surface reflection sheen — sits on the desk under the rig
+        const sheenGeo = new THREE.CircleGeometry(3, 64);
+        const sheenMat = new THREE.MeshBasicMaterial({
+            color: 0x0c0e12, transparent: true, opacity: 0.85,
+        });
+        const sheen = new THREE.Mesh(sheenGeo, sheenMat);
+        sheen.rotation.x = -Math.PI / 2;
+        sheen.position.y = 0.001;
+        rig.add(sheen);
+
+        // ---- PC tower (vAI sub-studio portal) ----
+        this._buildTower(rig);
+
+        // lift the rig so it sits on the desk surface
+        rig.position.y = 0.35;
+        group.add(rig);
+
+        // ---- desk + legs (stays in group, on the ground) ----
+        this._buildDesk(group);
 
         // ---- ground / contact shadow plane ----
         const groundGeo = new THREE.PlaneGeometry(40, 40);
@@ -325,31 +344,53 @@ export class Scene3D {
         ground.receiveShadow = true;
         group.add(ground);
 
-        // subtle floor reflection sheen (a dark disc that catches light)
-        const sheenGeo = new THREE.CircleGeometry(3, 64);
-        const sheenMat = new THREE.MeshBasicMaterial({
-            color: 0x0c0e12, transparent: true, opacity: 0.85,
-        });
-        const sheen = new THREE.Mesh(sheenGeo, sheenMat);
-        sheen.rotation.x = -Math.PI / 2;
-        sheen.position.y = 0.001;
-        group.add(sheen);
-
-        // ---- PC tower (vAI sub-studio portal) ----
-        this._buildTower(group);
-
-        // center the whole rig. On mobile keep the scale a bit larger and
-        // position the rig so both monitor and tower read clearly in the
-        // shifted/wide camera. The tower is on the right, so we nudge the
-        // whole group slightly left to balance the frame.
+        // The desk raises the rig, so we sink the group slightly to keep the
+        // monitor near vertical center and the desk low in frame.
         if (this._isMobile) {
             group.scale.setScalar(0.9);
-            group.position.set(-0.45, -0.48, 0);
+            group.position.set(-0.45, -0.1, 0);
         } else {
-            group.position.y = -0.35;
+            group.position.y = -0.1;
         }
         this.scene.add(group);
         this.computer = group;
+    }
+
+    // Build a refined desk surface + four legs so the hero reads as a
+    // workspace rather than a floating rig.
+    _buildDesk(parent) {
+        const deskMat = new THREE.MeshPhysicalMaterial({
+            color: 0x15171c, metalness: 0.5, roughness: 0.55,
+            envMapIntensity: 0.7, clearcoat: 0.25, clearcoatRoughness: 0.6,
+        });
+        const legMat = new THREE.MeshPhysicalMaterial({
+            color: 0x0d0e11, metalness: 0.85, roughness: 0.4, envMapIntensity: 0.8,
+        });
+
+        // desktop slab
+        const topGeo = new THREE.BoxGeometry(3.6, 0.04, 1.2);
+        const top = new THREE.Mesh(topGeo, deskMat);
+        top.position.set(0, 0.33, 0);
+        top.castShadow = true;
+        top.receiveShadow = true;
+        parent.add(top);
+
+        // 4 legs
+        const legGeo = new THREE.BoxGeometry(0.06, 0.31, 0.06);
+        const fx = 1.72, fz = 0.54;
+        [[fx, fz], [-fx, fz], [fx, -fz], [-fx, -fz]].forEach(([x, z]) => {
+            const leg = new THREE.Mesh(legGeo, legMat);
+            leg.position.set(x, 0.155, z);
+            leg.castShadow = true;
+            parent.add(leg);
+        });
+
+        // back stabilizer beam
+        const beamGeo = new THREE.BoxGeometry(3.3, 0.04, 0.04);
+        const beam = new THREE.Mesh(beamGeo, legMat);
+        beam.position.set(0, 0.12, -0.5);
+        beam.castShadow = true;
+        parent.add(beam);
     }
 
     // Build a refined PC tower with tempered-glass side panel
@@ -818,7 +859,7 @@ export class Scene3D {
             this.computer.rotation.y += (this._targetRot.y - this.computer.rotation.y) * lerp;
             this.computer.rotation.x += (this._targetRot.x - this.computer.rotation.x) * lerp;
             // subtle float around the base position set in _buildComputer
-            const baseY = this._isMobile ? -0.55 : -0.35;
+            const baseY = -0.1;
             this.computer.position.y = baseY + Math.sin(t * 0.6) * 0.015;
         }
 
