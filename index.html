@@ -139,6 +139,23 @@
     .vai-link b { font-size:22px; font-weight:400; }
     .vai-note { margin-top: 39px; padding: 20px 0 0; border-top:1px solid var(--hair); color:var(--soft-ink); font:11px/1.6 var(--sans); }
 
+    .partners-head { display:flex; justify-content:space-between; align-items:flex-end; gap:30px; margin-bottom:48px; }
+    .partners-head h2 { margin:17px 0 0; font-size:clamp(48px, 7.2vw, 100px); line-height:.84; letter-spacing:-.09em; font-weight:600; max-width:760px; }
+    .partners-head h2 span { color:var(--orange); }
+    .partners-head p { max-width:360px; margin:0; color:var(--soft-ink); font:18px/1.4 var(--serif); }
+    .partners-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+    .partner-card { position:relative; display:flex; flex-direction:column; min-height:360px; padding:30px; border:1px solid var(--hair); border-radius:22px; background:var(--paper); overflow:hidden; transition: transform .5s var(--ease), border-color .5s var(--ease); }
+    .partner-card:hover { transform:translateY(-5px); border-color:rgba(22,22,22,.32); }
+    .partner-card .partner-logo { display:flex; align-items:center; height:62px; margin-bottom:24px; }
+    .partner-card .partner-logo img { max-height:48px; max-width:240px; object-fit:contain; object-position:left center; }
+    .partner-card .partner-meta { display:flex; justify-content:space-between; align-items:center; gap:14px; margin-bottom:14px; color:var(--soft-ink); font:10px var(--sans); letter-spacing:.08em; text-transform:uppercase; }
+    .partner-card h3 { margin:0 0 10px; font-size:30px; letter-spacing:-.04em; font-weight:600; line-height:1.05; }
+    .partner-card h3 span { color:var(--orange); }
+    .partner-card p { margin:0 0 22px; color:var(--soft-ink); font:15px/1.45 var(--serif); }
+    .partner-link { display:inline-flex; align-items:center; gap:10px; margin-top:auto; padding-top:18px; color:var(--orange); font:11px var(--sans); align-self:flex-start; white-space:nowrap; }
+    .partner-link i { font-style:normal; font-size:16px; transition:transform .4s var(--ease); }
+    .partner-card:hover .partner-link i { transform:translate(3px,-3px); }
+
     .connect { background: var(--paper-deep); }
     .connect-grid { display:grid; grid-template-columns: .82fr 1.18fr; gap: 8vw; }
     .connect-copy h2 { margin: 0; font-size:clamp(58px, 8vw, 122px); line-height:.78; letter-spacing:-.1em; }
@@ -180,6 +197,13 @@
       .board-tag { left:-10px; bottom:73px; }
       .section { padding: 105px 0; }
       .section-intro, .manifesto, .vai-wrap, .connect-grid { display:block; }
+      .partners-head { flex-direction:column; align-items:flex-start; margin-bottom:36px; }
+      .partners-head p { font-size:17px; }
+      .partners-grid { display:block; }
+      .partner-card { padding:22px; margin-bottom:12px; }
+      .partner-card .partner-logo { height:48px; margin-bottom:18px; }
+      .partner-card .partner-logo img { max-height:38px; }
+      .partner-card h3 { font-size:26px; }
       .section-intro { margin-bottom:58px; }
       .section-intro p { margin-top:30px; font-size:26px; }
       .studio-facts { margin-bottom: 58px; gap: 12px 24px; line-height: 1.7; }
@@ -208,6 +232,7 @@
       <a href="#studio">关于</a>
       <a href="#direction">方向</a>
       <a href="#vai">vAI</a>
+      <a href="#partners">伙伴</a>
       <a href="#connect">联系</a>
             <div class="lang-inline"><a class="lang-inline-item current" href="index.html">中文</a><span class="lang-sep">/</span><a class="lang-inline-item" href="index-en.html">EN</a></div>
       <a class="nav-cta" href="https://github.com/xmzf" target="_blank" rel="noreferrer">GitHub <i>↗</i></a>
@@ -263,10 +288,18 @@
       </div>
     </section>
 
+    <section class="section shell" id="partners">
+      <div class="partners-head reveal"><div><span class="eyebrow">04 / Building with</span><h2>We don't<br><span>work alone.</span></h2></div><p>API 层、认证层这些底层活，我们交给更专业的人。下面这两家工作室是 XMZF 的长期基础设施伙伴。</p></div>
+      <div class="partners-grid">
+        <article class="partner-card"><div class="partner-meta"><span>INFRASTRUCTURE · AUTH</span><span>EST. 2018</span></div><div class="partner-logo"><img src="assets/rtstudio.png" alt="热土工作室 RTStudio" /></div><h3>热土工作室<br><span>RTStudio</span></h3><p>统一用户认证与授权系统。管好用户的权限、登录和会话状态，是很多产品最早也要最常被低估的一块基础活。</p><a class="partner-link" href="https://rtstu.com" target="_blank" rel="noreferrer">访问 rtstu.com <i>↗</i></a></article>
+        <article class="partner-card"><div class="partner-meta"><span>INFRASTRUCTURE · AI API</span><span>EST. 2024</span></div><div class="partner-logo"><img src="assets/lunora.png" alt="Lunora API" /></div><h3>Lunora<br><span>API</span></h3><p>一个统一网关背后接通多个大模型，按用量和场景调度，适合不想自己分别接各家的小团队。</p><a class="partner-link" href="https://www.uselunora.com" target="_blank" rel="noreferrer">访问 uselunora.com <i>↗</i></a></article>
+      </div>
+    </section>
+
     <section class="section connect" id="connect">
       <div class="shell">
         <div class="connect-grid">
-          <div class="connect-copy reveal"><span class="eyebrow">04 / Find us</span><h2>Say<br><span class="serif">hello.</span></h2><p>项目、合作、野生想法，或者只是想认识我们，都可以直接发邮件。</p></div>
+          <div class="connect-copy reveal"><span class="eyebrow">05 / Find us</span><h2>Say<br><span class="serif">hello.</span></h2><p>项目、合作、野生想法，或者只是想认识我们，都可以直接发邮件。</p></div>
           <div class="contact-list reveal">
             <a class="contact-row" href="mailto:xmzf@xmzf.space"><strong>一般咨询</strong><span>xmzf@xmzf.space ↗</span></a>
             <a class="contact-row" href="mailto:support@xmzf.space"><strong>服务支持</strong><span>support@xmzf.space ↗</span></a>
