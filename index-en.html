@@ -140,7 +140,24 @@
     .vai-note { margin-top: 39px; padding: 20px 0 0; border-top:1px solid var(--hair); color:var(--soft-ink); font:11px/1.6 var(--sans); }
 
     .connect { background: var(--paper-deep); }
-    .connect-grid { display:grid; grid-template-columns: .82fr 1.18fr; gap: 8vw; }
+        .partners-head { display:flex; justify-content:space-between; align-items:flex-end; gap:30px; margin-bottom:48px; }
+    .partners-head h2 { margin:17px 0 0; font-size:clamp(48px, 7.2vw, 100px); line-height:.84; letter-spacing:-.09em; font-weight:600; max-width:760px; }
+    .partners-head h2 span { color:var(--orange); }
+    .partners-head p { max-width:360px; margin:0; color:var(--soft-ink); font:18px/1.4 var(--serif); }
+    .partners-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+    .partner-card { position:relative; display:flex; flex-direction:column; min-height:360px; padding:30px; border:1px solid var(--hair); border-radius:22px; background:var(--paper); overflow:hidden; transition: transform .5s var(--ease), border-color .5s var(--ease); }
+    .partner-card:hover { transform:translateY(-5px); border-color:rgba(22,22,22,.32); }
+    .partner-card .partner-logo { display:flex; align-items:center; height:62px; margin-bottom:24px; }
+    .partner-card .partner-logo img { max-height:48px; max-width:240px; object-fit:contain; object-position:left center; }
+    .partner-card .partner-meta { display:flex; justify-content:space-between; align-items:center; gap:14px; margin-bottom:14px; color:var(--soft-ink); font:10px var(--sans); letter-spacing:.08em; text-transform:uppercase; }
+    .partner-card h3 { margin:0 0 10px; font-size:30px; letter-spacing:-.04em; font-weight:600; line-height:1.05; }
+    .partner-card h3 span { color:var(--orange); }
+    .partner-card p { margin:0 0 22px; color:var(--soft-ink); font:15px/1.45 var(--serif); }
+    .partner-link { display:inline-flex; align-items:center; gap:10px; margin-top:auto; padding-top:18px; color:var(--orange); font:11px var(--sans); align-self:flex-start; white-space:nowrap; }
+    .partner-link i { font-style:normal; font-size:16px; transition:transform .4s var(--ease); }
+    .partner-card:hover .partner-link i { transform:translate(3px,-3px); }
+
+.connect-grid { display:grid; grid-template-columns: .82fr 1.18fr; gap: 8vw; }
     .connect-copy h2 { margin: 0; font-size:clamp(58px, 8vw, 122px); line-height:.78; letter-spacing:-.1em; }
     .connect-copy p { max-width: 290px; margin:35px 0 0; color:var(--soft-ink); font:20px/1.25 var(--serif); }
     .contact-list { border-top:1px solid var(--hair); }
@@ -180,6 +197,14 @@
       .board-tag { left:-10px; bottom:73px; }
       .section { padding: 105px 0; }
       .section-intro, .manifesto, .vai-wrap, .connect-grid { display:block; }
+      .partners-head { flex-direction:column; align-items:flex-start; margin-bottom:36px; }
+      .partners-head p { font-size:17px; }
+      .partners-grid { display:block; }
+      .partner-card { padding:22px; margin-bottom:12px; }
+      .partner-card .partner-logo { height:48px; margin-bottom:18px; }
+      .partner-card .partner-logo img { max-height:38px; }
+      .partner-card h3 { font-size:26px; }
+
       .section-intro { margin-bottom:58px; }
       .section-intro p { margin-top:30px; font-size:26px; }
       .studio-facts { margin-bottom: 58px; gap: 12px 24px; line-height: 1.7; }
@@ -208,6 +233,7 @@
       <a href="#studio">About</a>
       <a href="#direction">Direction</a>
       <a href="#vai">vAI</a>
+      <a href="#partners">Partners</a>
       <a href="#connect">Contact</a>
             <div class="lang-inline"><a class="lang-inline-item" href="index.html">中文</a><span class="lang-sep">/</span><a class="lang-inline-item current" href="index-en.html">EN</a></div>
       <a class="nav-cta" href="https://github.com/xmzf" target="_blank" rel="noreferrer">GitHub <i>↗</i></a>
@@ -263,10 +289,18 @@
       </div>
     </section>
 
+    <section class="section shell" id="partners">
+      <div class="partners-head"><div><span class="eyebrow">04 / Building with</span><h2>We don't<br><span>work alone.</span></h2></div><p>The infrastructure work — auth, AI gateways — we hand off to the people who do it best. These two studios are XMZF's long-term partners.</p></div>
+      <div class="partners-grid">
+        <article class="partner-card"><div class="partner-meta"><span>INFRASTRUCTURE · AUTH</span><span>EST. 2018</span></div><div class="partner-logo"><img src="assets/rtstudio.png" alt="热土工作室 RTStudio" /></div><h3>RTStudio</h3><p>Unified authentication and authorization. Sessions, permissions, identity — the unglamorous plumbing that every product eventually needs and most underestimate.</p><a class="partner-link" href="https://rtstu.com" target="_blank" rel="noreferrer">Visit rtstu.com <i>↗</i></a></article>
+        <article class="partner-card"><div class="partner-meta"><span>INFRASTRUCTURE · AI API</span><span>EST. 2024</span></div><div class="partner-logo"><img src="assets/lunora.png" alt="Lunora API" /></div><h3>Lunora API</h3><p>One gateway that fans out to multiple large models. Useful for small teams that don't want to wire up every provider individually.</p><a class="partner-link" href="https://www.uselunora.com" target="_blank" rel="noreferrer">Visit uselunora.com <i>↗</i></a></article>
+      </div>
+    </section>
+
     <section class="section connect" id="connect">
       <div class="shell">
         <div class="connect-grid">
-          <div class="connect-copy reveal"><span class="eyebrow">04 / Find us</span><h2>Say<br><span class="serif">hello.</span></h2><p>Projects, collaborations, wild ideas, or just getting to know us: email works.</p></div>
+          <div class="connect-copy reveal"><span class="eyebrow">05 / Find us</span><h2>Say<br><span class="serif">hello.</span></h2><p>Projects, collaborations, wild ideas, or just getting to know us: email works.</p></div>
           <div class="contact-list reveal">
             <a class="contact-row" href="mailto:xmzf@xmzf.space"><strong>General</strong><span>xmzf@xmzf.space ↗</span></a>
             <a class="contact-row" href="mailto:support@xmzf.space"><strong>Support</strong><span>support@xmzf.space ↗</span></a>
