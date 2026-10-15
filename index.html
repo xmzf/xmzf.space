@@ -1,329 +1,995 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#f5f1ea" />
-  <link rel="icon" type="image/svg+xml" href="favicon.svg?v=2" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#0d0d0c" />
+<title>XMZF Studio — 把想法排成能用的东西</title>
+<meta name="description" content="XMZF Studio — 广州的独立创意工作室。定位、结构、制作、维护；以及一个 AI 产品工作室。" />
+<link rel="canonical" href="https://xmzf.space/" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://xmzf.space/" />
+<meta property="og:site_name" content="XMZF Studio" />
+<meta property="og:title" content="XMZF Studio" />
+<meta property="og:description" content="把还没成形的东西，排成一个能被用起来的东西。" />
+<meta property="og:image" content="https://xmzf.space/og.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="XMZF Studio" />
+<meta name="twitter:description" content="把还没成形的东西，排成一个能被用起来的东西。" />
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
 
-  <meta name="description" content="XMZF Studio — Designing in motion. 一个来自广州、面向远程的年轻创意工作室。" />
-  <meta property="og:title" content="XMZF Studio — Designing in motion." />
-  <meta property="og:description" content="Interfaces, identities, and useful experiments." />
-  <title>XMZF Studio — Designing in motion.</title>
-  <style>
-    :root {
-      --paper: #f5f1ea;
-      --paper-deep: #ebe5dc;
-      --ink: #161616;
-      --soft-ink: #53504b;
-      --hair: rgba(22, 22, 22, .15);
-      --orange: #e97e3e;
-      --orange-soft: #f3b078;
-      --sage: #dce1d4;
-      --serif: Georgia, "Times New Roman", serif;
-      --sans: "Avenir Next", "Helvetica Neue", "Segoe UI", system-ui, sans-serif;
-      --ease: cubic-bezier(.22, .8, .2, 1);
-    }
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); overflow-x: hidden; }
-    body::before { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 20; opacity: .025; mix-blend-mode: multiply; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)' opacity='.65'/%3E%3C/svg%3E"); }
-    a { color: inherit; text-decoration: none; }
-    button { font: inherit; }
-    .shell { width: min(1380px, calc(100% - 64px)); margin: 0 auto; }
-    .serif { font-family: var(--serif); }
-    .eyebrow { display: inline-flex; align-items: center; gap: 9px; color: var(--soft-ink); font: 11px var(--sans); letter-spacing: .08em; text-transform: uppercase; }
-    .eyebrow::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--orange); }
-    .topbar { position: sticky; top: 18px; z-index: 10; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-top: 18px; }
-    .logo-pill, .nav-pill { background: rgba(255, 253, 249, .78); border: 1px solid rgba(22, 22, 22, .1); box-shadow: 0 15px 36px rgba(76, 63, 45, .1), inset 0 1px rgba(255,255,255,.8); backdrop-filter: blur(18px); }
-    .logo-pill { display: inline-flex; align-items: center; gap: 8px; border-radius: 999px; padding: 19px 24px; font: 700 17px var(--sans); letter-spacing: .05em; }
-    .logo-pill .logo-strong { color: var(--ink); }
-    .logo-pill .logo-studio { color: var(--soft-ink); font-weight: 400; }
-    .nav-pill { display: flex; align-items: center; gap: 30px; border-radius: 999px; padding: 9px 12px 9px 25px; color: var(--soft-ink); font-size: 13px; }
-    .nav-pill a { padding: 9px 0; transition: color .35s var(--ease); }
-    .nav-pill a:hover, .nav-pill a:focus-visible { color: var(--orange); }
-    .nav-pill .nav-cta { display: inline-flex; align-items: center; gap: 10px; border-radius: 999px; padding: 10px 13px 10px 16px; background: var(--ink); color: var(--paper); transition: transform .35s var(--ease), background .35s var(--ease); }
-    .nav-pill .nav-cta:hover, .nav-pill .nav-cta:focus-visible { background: var(--orange); color: var(--ink); transform: translateY(-2px); }
-    .nav-cta i { font-style: normal; font-size: 15px; }
-        .lang-inline { display: inline-flex; align-items: center; gap: 0; }
-    .lang-inline a { display: inline-block; padding: 8px 6px; font-size: 13px; color: var(--soft-ink); transition: color .3s var(--ease); }
-    .lang-inline a:hover, .lang-inline a:focus-visible { color: var(--orange); }
-    .lang-inline .lang-sep { color: rgba(22,22,22,.22); padding: 0 4px; font-size: 12px; }
+<style>
+/* ═══ 1 · TOKENS ═══════════════════════════════════════════════════════ */
+:root{
+  --ground:#0d0d0c;
+  --ground-2:#151514;
+  --paper:#f4f4f1;
+  --fg:#f4f4f1;
+  --fg-dim:rgba(244,244,241,.58);
+  --fg-mute:rgba(244,244,241,.34);
+  --rule:rgba(244,244,241,.14);
+  --rule-soft:rgba(244,244,241,.045);
+  --set:#5b7cfa;                 /* the one accent: "set" / locked */
+  --set-lo:#2a3a72;
 
-    .lang-inline .lang-inline-item { font-weight: 500; }
-    .lang-inline .lang-inline-item.current { color: var(--orange); font-weight: 600; }
+  --sans:-apple-system,"SF Pro Display","Inter","Helvetica Neue","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  --mono:ui-monospace,"SF Mono",SFMono-Regular,"JetBrains Mono",Menlo,monospace;
 
-    .menu-btn { display: none; border: 0; border-radius: 50%; width: 42px; height: 42px; background: var(--ink); color: var(--paper); }
+  --gut:clamp(20px,4.6vw,72px);
+  --e:cubic-bezier(.16,1,.3,1);
+  --q:cubic-bezier(.4,0,.2,1);
+  --lock:620ms;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;background:var(--ground)}
+body{
+  margin:0;background:var(--ground);color:var(--fg);
+  font-family:var(--sans);font-size:clamp(.9375rem,1.02vw,1.0625rem);
+  line-height:1.72;letter-spacing:-.004em;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+ul,ol{margin:0;padding:0;list-style:none}
+h1,h2,h3,p{margin:0}
+img{display:block;max-width:100%}
+:focus-visible{outline:2px solid var(--set);outline-offset:4px}
+::selection{background:var(--set);color:#fff}
+.mono{font-family:var(--mono)}
+.n{font-variant-numeric:tabular-nums}
+.lbl{
+  font-family:var(--mono);font-size:.6875rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--fg-mute);
+}
+.wrap{padding-inline:var(--gut)}
+.skip{
+  position:fixed;left:12px;top:12px;z-index:100;
+  padding:.7rem 1rem;border-radius:5px;
+  background:var(--set);color:#fff;font-size:.8125rem;font-weight:600;
+  transform:translateY(-160%);transition:transform 260ms var(--e);
+}
+.skip:focus-visible{transform:none}
 
-    .hero { min-height: min(900px, calc(100dvh - 25px)); display: grid; grid-template-columns: minmax(0, 1.04fr) minmax(370px, .96fr); align-items: center; gap: clamp(44px, 8vw, 140px); padding: 145px 0 115px; }
-    .hero-copy { padding-top: 5vh; }
-    .hero-copy h1 { margin: 25px 0 22px; max-width: 720px; font-size: clamp(70px, 9vw, 140px); line-height: .87; letter-spacing: -.085em; font-weight: 600; }
-    .hero-copy h1 .light { font-family: var(--serif); font-weight: 400; letter-spacing: -.075em; }
-    .hero-copy h1 .orange { color: var(--orange); }
-    .hero-lede { max-width: 475px; margin: 0; color: var(--soft-ink); font: 24px/1.22 var(--serif); }
-    .hero-note { display: flex; align-items: center; gap: 16px; margin-top: 42px; color: var(--soft-ink); font: 11px var(--sans); }
-    .hero-note::before { content: ""; width: 40px; height: 1px; background: var(--orange); }
-    .studio-facts { display: flex; flex-wrap: wrap; gap: 14px 34px; margin-bottom: 88px; color: var(--soft-ink); font: 11px var(--sans); letter-spacing: .05em; }
-    .studio-facts b { color: var(--ink); font-weight: 600; }
-    .hero-formula { display: flex; align-items: center; gap: 12px; margin-top: 20px; font: 500 clamp(22px, 2.6vw, 34px) var(--sans); letter-spacing: .02em; color: var(--ink); }
-    .hero-formula .formula-mark { color: var(--orange); }
-    .hero-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 36px; }
-    .btn { display: inline-flex; align-items: center; gap: 20px; border: 1px solid var(--ink); border-radius: 999px; padding: 13px 14px 13px 19px; font-size: 13px; transition: background .45s var(--ease), color .45s var(--ease), transform .45s var(--ease); }
-    .btn .btn-arrow { display: grid; place-items: center; width: 25px; height: 25px; border-radius: 50%; background: var(--ink); color: var(--paper); font-size: 15px; transition: transform .45s var(--ease), background .45s var(--ease); }
-    .btn:hover, .btn:focus-visible { background: var(--ink); color: var(--paper); transform: translateY(-3px); }
-    .btn:hover .btn-arrow, .btn:focus-visible .btn-arrow { transform: translate(2px, -2px); background: var(--orange); color: var(--ink); }
-    .btn-dark { background: var(--ink); color: var(--paper); }
-    .btn-dark .btn-arrow { background: var(--paper); color: var(--ink); }
-    .btn-dark:hover, .btn-dark:focus-visible { background: var(--orange); color: var(--ink); border-color: var(--orange); }
-    .btn-dark:hover .btn-arrow, .btn-dark:focus-visible .btn-arrow { background: var(--ink); color: var(--paper); }
+/* ═══ 2 · THE GRID ═════════════════════════════════════════════════════
+   A design studio's real tool. It is invisible until you look, and it is
+   what the whole page is set against. The same lines stay lit under every
+   section below the hero — the hero did not decorate the page, it drew it. */
+.grid-lines{
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  will-change:opacity;
+  background-image:repeating-linear-gradient(
+    to bottom, var(--rule-soft) 0 1px, transparent 1px 100%
+  );
+  background-size:100% clamp(96px,12vh,144px);
+  opacity:0;transition:opacity 900ms var(--q);
+}
+.grid-lines.on{opacity:1}
+.grid-cols{
+  position:fixed;inset:0 var(--gut);z-index:0;pointer-events:none;
+  display:grid;grid-template-columns:repeat(12,1fr);gap:var(--gut);
+  opacity:0;transition:opacity 900ms var(--q);
+}
+.grid-cols.on{opacity:.55}
+.grid-cols i{background:linear-gradient(to bottom,transparent,var(--rule-soft) 18%,var(--rule-soft) 82%,transparent)}
+main,.hdr,.ftr{position:relative;z-index:1}
 
-    .hero-board { position: relative; min-height: 550px; }
-    .board-main { position: absolute; z-index: 2; top: 34px; left: 0; width: 92%; height: 380px; border-radius: 24px; background: var(--ink); color: var(--paper); padding: 27px; box-shadow: 0 28px 46px rgba(25,20,14,.18); transform: rotate(-2.2deg); transition: transform .7s var(--ease); }
-    .hero-board:hover .board-main { transform: rotate(-.6deg) translateY(-7px); }
-    .board-main::after { content: ""; position: absolute; right: 26px; top: 25px; width: 44px; height: 44px; border: 1px solid var(--orange); border-radius: 50%; box-shadow: inset 0 0 0 7px rgba(233,126,62,.1); }
-    .board-top { display:flex; justify-content:space-between; color: rgba(245,241,234,.56); font: 10px var(--sans); letter-spacing:.08em; }
-    .board-main h2 { margin: 70px 0 15px; font-size: clamp(46px, 6.5vw, 88px); line-height: .85; letter-spacing: -.09em; font-weight: 600; }
-    .board-main h2 span { color: var(--orange); }
-    .board-main p { max-width: 260px; color: rgba(245,241,234,.62); font: 13px/1.45 var(--serif); }
-    .board-ruler { position:absolute; bottom:24px; left:27px; right:27px; display:flex; justify-content:space-between; color:rgba(245,241,234,.38); font:9px var(--sans); border-top:1px solid rgba(245,241,234,.2); padding-top:9px; }
-    .board-ruler::before { content:""; position:absolute; top:-5px; left:0; right:0; height:9px; background: repeating-linear-gradient(90deg, transparent 0, transparent calc(10% - 1px), rgba(245,241,234,.33) 10%); opacity:.75; }
-    .board-small { position: absolute; z-index: 3; right: 0; bottom: 8px; width: 47%; min-height: 235px; border-radius: 19px; background: var(--paper-deep); padding: 21px; box-shadow: 0 24px 40px rgba(25,20,14,.13); transform: rotate(5deg); }
-    .board-small::before { content:""; display:block; width: 45px; height: 45px; margin-bottom: 29px; border-radius: 50% 50% 50% 0; background: var(--orange); transform: rotate(-45deg); }
-    .board-small p { margin:0; max-width:160px; font: 21px/1.05 var(--serif); }
-    .board-small small { display:block; margin-top:25px; color:var(--soft-ink); font:9px var(--sans); }
-    .board-tag { position:absolute; z-index:4; left: -19px; bottom: 79px; transform:rotate(-90deg); transform-origin:left top; color:var(--soft-ink); font:10px var(--sans); letter-spacing:.09em; }
+/* ═══ 3 · HEADER ══════════════════════════════════════════════════════ */
+.hdr{
+  position:fixed;inset:0 0 auto;z-index:60;
+  display:flex;align-items:center;justify-content:space-between;gap:2rem;
+  padding:16px var(--gut);
+  font-family:var(--mono);font-size:.6875rem;letter-spacing:.15em;text-transform:uppercase;
+  background:rgba(13,13,12,.72);backdrop-filter:blur(16px) saturate(1.3);
+  border-bottom:1px solid transparent;
+  transition:border-color var(--q) 340ms;
+}
+.hdr.solid{border-bottom-color:var(--rule)}
+.hdr .brand{font-weight:700;letter-spacing:.06em}
+.hdr .brand s{text-decoration:none;color:var(--fg-mute);font-weight:400}
+.hdr nav{display:flex;gap:clamp(14px,2vw,30px);align-items:center}
+.hdr nav a{color:var(--fg-dim);transition:color 180ms var(--q)}
+.hdr nav a:hover,.hdr nav a:focus-visible{color:var(--fg)}
+.hdr nav a[data-on]{color:var(--set)}
+.burger{display:none;width:34px;height:34px;flex-direction:column;justify-content:center;gap:5px}
+.burger i{display:block;height:1px;background:var(--fg);transition:transform 300ms var(--e)}
+.burger[aria-expanded="true"] i:first-child{transform:translateY(3px) rotate(45deg)}
+.burger[aria-expanded="true"] i:last-child{transform:translateY(-3px) rotate(-45deg)}
 
-    .marquee { overflow: hidden; background: var(--ink); color: var(--paper); border-block: 1px solid var(--ink); white-space: nowrap; }
-    .marquee-track { display:flex; width:max-content; animation: marquee 28s linear infinite; }
-    .marquee span { display:inline-flex; gap:32px; align-items:center; padding: 14px 18px; font: 10px var(--sans); letter-spacing: .13em; }
-    .marquee i { width: 5px; height: 5px; background: var(--orange); border-radius: 50%; }
+/* ═══ 4 · HERO — the page is set, not read ════════════════════════════
+   340vh. Each word is its own scrub track: it arrives loose and skewed,
+   tightens to its final tracking, straightens and locks. Scroll back up
+   and it unlocks. The progress frame below shows the measure being set.  */
+.hero{position:relative;padding-top:clamp(104px,15vh,168px);min-height:340vh}
+.hero-flow{position:relative;z-index:3;margin-top:-100svh;padding-top:40svh;padding-bottom:16vh}
+.hero-lede{
+  font-family:var(--mono);font-size:.6875rem;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--fg-mute);
+  display:flex;gap:1.4rem;flex-wrap:wrap;padding-bottom:clamp(28px,5vh,56px);
+}
+.hero-lede b{color:var(--set);font-weight:400}
 
-    .section { padding: 145px 0; }
-    .section + .section { border-top: 1px solid var(--hair); }
-    .section-intro { display:grid; grid-template-columns: .75fr 1.25fr; gap: 8vw; margin-bottom: 88px; }
-    .section-intro h2 { margin:0; font-size:clamp(54px, 7.5vw, 112px); line-height:.84; letter-spacing:-.09em; font-weight:600; }
-    .section-intro p { max-width: 560px; margin:0; color:var(--soft-ink); font: clamp(22px, 3vw, 39px)/1.12 var(--serif); }
-    .manifesto { display:grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--hair); }
-    .manifesto-item { min-height: 180px; padding: 24px 18px 25px 0; border-bottom:1px solid var(--hair); }
-    .manifesto-item:nth-child(odd) { padding-right: 10vw; border-right:1px solid var(--hair); }
-    .manifesto-item:nth-child(even) { padding-left: 3vw; }
-    .manifesto-item small { color:var(--orange); font:10px var(--sans); }
-    .manifesto-item h3 { margin:26px 0 9px; font-size:25px; letter-spacing:-.04em; font-weight:600; }
-    .manifesto-item p { max-width: 370px; margin:0; color:var(--soft-ink); line-height:1.45; }
+.type{
+  display:grid;
+  font-size:clamp(2.6rem,8.6vw,7.6rem);
+  line-height:1.02;letter-spacing:-.03em;font-weight:600;
+}
+.line{display:block;padding-block:.06em;margin-bottom:34vh}
+/* the later lines hang off the column grid instead of all starting at 0 */
+.line.b{padding-left:8.333%}
+.line.c{padding-left:16.666%}
 
-    .direction { background: var(--ink); color: var(--paper); }
-    .direction .section-intro p { color: rgba(245,241,234,.67); }
-    .direction .eyebrow { color:rgba(245,241,234,.6); }
-    .direction-grid { display:grid; grid-template-columns: 1.28fr .72fr; gap: 14px; }
-    .direction-lead { min-height: 525px; padding: 30px; border-radius: 24px; background: var(--orange); color:var(--ink); display:flex; flex-direction:column; justify-content:space-between; transition: transform .55s var(--ease); }
-    .direction-lead:hover { transform: translateY(-7px) rotate(-.6deg); }
-    .direction-lead h3 { margin: 0; max-width: 570px; font-size: clamp(48px, 7vw, 103px); line-height:.82; letter-spacing:-.1em; }
-    .direction-lead p { max-width: 280px; margin:0; font:18px/1.3 var(--serif); }
-    .direction-list { display:grid; gap:14px; }
-    .direction-item { min-height: 255px; padding: 25px; border:1px solid rgba(245,241,234,.2); border-radius: 24px; display:flex; flex-direction:column; justify-content:space-between; transition: background .45s var(--ease), color .45s var(--ease), transform .45s var(--ease); }
-    .direction-item:hover { background:var(--paper); color:var(--ink); transform:translateY(-5px); }
-    .direction-item small { color:var(--orange-soft); font:10px var(--sans); }
-    .direction-item h3 { margin:0; font-size:clamp(26px,3.2vw,45px); line-height:.92; letter-spacing:-.07em; }
-    .direction-item p { margin:0; color:rgba(245,241,234,.58); font-size:13px; }
-    .direction-item:hover p { color:var(--soft-ink); }
+/* every word is its own track. Default = SET (the finished state), so a
+   browser without scroll timelines renders the finished composition. */
+.w{
+  display:inline-block;white-space:pre;
+  transform-origin:left bottom;
+}
+.t{color:var(--fg)}
+.t.acc{color:var(--set)}
+.t.dim{color:var(--fg-dim)}
 
-    .vai-wrap { display:grid; grid-template-columns: 1.03fr .97fr; gap: 8vw; align-items:center; }
-    .vai-copy h2 { margin: 18px 0 20px; font-size:clamp(70px, 12vw, 180px); line-height:.73; letter-spacing:-.12em; font-weight:600; }
-    .vai-copy h2 span { color:var(--orange); }
-    .vai-copy p { max-width: 430px; margin:0; color:var(--soft-ink); font:25px/1.14 var(--serif); }
-    .vai-index { border-top:1px solid var(--hair); }
-    .vai-link { display:flex; align-items:baseline; justify-content:space-between; gap:20px; padding:21px 0; border-bottom:1px solid var(--hair); transition: padding-left .4s var(--ease), color .4s var(--ease); }
-    .vai-link:hover { padding-left:10px; color:var(--orange); }
-    .vai-link strong { font-size:22px; font-weight:500; }
-    .vai-link span { color:var(--soft-ink); font:11px var(--sans); }
-    .vai-link b { font-size:22px; font-weight:400; }
-    .vai-note { margin-top: 39px; padding: 20px 0 0; border-top:1px solid var(--hair); color:var(--soft-ink); font:11px/1.6 var(--sans); }
+@supports (animation-timeline:view()){
+  .w{
+    animation-name:set;
+    animation-duration:1ms;              /* the timeline owns the length */
+    animation-timing-function:linear;
+    animation-fill-mode:both;
+    animation-timeline:view();
+  }
+  /* One explicit window per word. Written out rather than computed: a range
+     the parser rejects is silently dropped and every word sets at once. */
+  .line.a .w:nth-child(1){animation-range:cover 0%   cover 26%}
+  .line.a .w:nth-child(2){animation-range:cover 8%   cover 34%}
+  .line.b .w:nth-child(1){animation-range:cover 16%  cover 42%}
+  .line.b .w:nth-child(2){animation-range:cover 24%  cover 50%}
+  .line.c .w:nth-child(1){animation-range:cover 32%  cover 58%}
 
-    .partners-head { display:flex; justify-content:space-between; align-items:flex-end; gap:30px; margin-bottom:48px; }
-    .partners-head h2 { margin:17px 0 0; font-size:clamp(48px, 7.2vw, 100px); line-height:.84; letter-spacing:-.09em; font-weight:600; max-width:760px; }
-    .partners-head h2 span { color:var(--orange); }
-    .partners-head p { max-width:360px; margin:0; color:var(--soft-ink); font:18px/1.4 var(--serif); }
-    .partners-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
-    .partner-card { position:relative; display:flex; flex-direction:column; min-height:360px; padding:30px; border:1px solid var(--hair); border-radius:22px; background:var(--paper); overflow:hidden; transition: transform .5s var(--ease), border-color .5s var(--ease); }
-    .partner-card:hover { transform:translateY(-5px); border-color:rgba(22,22,22,.32); }
-    .partner-card .partner-logo { display:flex; align-items:center; height:62px; margin-bottom:24px; }
-    .partner-card .partner-logo img { max-height:48px; max-width:240px; object-fit:contain; object-position:left center; }
-    .partner-card .partner-meta { display:flex; justify-content:space-between; align-items:center; gap:14px; margin-bottom:14px; color:var(--soft-ink); font:10px var(--sans); letter-spacing:.08em; text-transform:uppercase; }
-    .partner-card h3 { margin:0 0 10px; font-size:30px; letter-spacing:-.04em; font-weight:600; line-height:1.05; }
-    .partner-card h3 span { color:var(--orange); }
-    .partner-card p { margin:0 0 22px; color:var(--soft-ink); font:15px/1.45 var(--serif); }
-    .partner-link { display:inline-flex; align-items:center; gap:10px; margin-top:auto; padding-top:18px; color:var(--orange); font:11px var(--sans); align-self:flex-start; white-space:nowrap; }
-    .partner-link i { font-style:normal; font-size:16px; transition:transform .4s var(--ease); }
-    .partner-card:hover .partner-link i { transform:translate(3px,-3px); }
+  /* loose + skewed + low → tight + straight + locked */
+  @keyframes set{
+    from{opacity:.001;letter-spacing:.2em;transform:translateY(.2em) skewX(-11deg) scale(.88)}
+    55% {letter-spacing:-.01em}
+    to  {opacity:1;letter-spacing:-.03em;transform:none}
+  }
+}
 
-    .connect { background: var(--paper-deep); }
-    .connect-grid { display:grid; grid-template-columns: .82fr 1.18fr; gap: 8vw; }
-    .connect-copy h2 { margin: 0; font-size:clamp(58px, 8vw, 122px); line-height:.78; letter-spacing:-.1em; }
-    .connect-copy p { max-width: 290px; margin:35px 0 0; color:var(--soft-ink); font:20px/1.25 var(--serif); }
-    .contact-list { border-top:1px solid var(--hair); }
-    .contact-row { display:flex; align-items:center; justify-content:space-between; gap:20px; padding:19px 0; border-bottom:1px solid var(--hair); transition: color .35s var(--ease), padding-left .35s var(--ease); }
-    .contact-row:hover { color:var(--orange); padding-left:9px; }
-    .contact-row strong { font-size:clamp(18px,2.5vw,33px); letter-spacing:-.04em; font-weight:500; }
-    .contact-row span { color:var(--soft-ink); font:11px var(--sans); }
-    .wechat { width:100%; border:0; border-bottom:1px solid var(--hair); background:transparent; color:inherit; cursor:pointer; text-align:left; }
-    .contact-final { margin-top:64px; display:flex; justify-content:space-between; align-items:end; gap:20px; padding: 25px 0 0; border-top:1px solid var(--hair); }
-    .contact-final strong { font-size:clamp(26px, 4vw, 54px); letter-spacing:-.06em; font-weight:500; }
-    .contact-final a { color:var(--orange); font:12px var(--sans); }
-    footer { display:flex; justify-content:space-between; gap:20px; padding: 26px 0 35px; color:var(--soft-ink); font:10px var(--sans); letter-spacing:.05em; }
-    .reveal { opacity:1; transform:none; }
-    .reveal.in-view { animation: lift .85s var(--ease) both; }
-    @keyframes lift { from { opacity:0; transform:translateY(28px); } to { opacity:1; transform:translateY(0); } }
-    @keyframes marquee { to { transform:translateX(-50%); } }
-    @media (prefers-reduced-motion: reduce) { *,*::before,*::after { animation-duration:.01ms !important; animation-iteration-count:1 !important; scroll-behavior:auto !important; transition-duration:.01ms !important; } }
-    @media (max-width: 820px) {
-      .shell { width: min(100% - 32px, 1380px); }
-      .topbar { top: 10px; padding-top: 10px; }
-      .nav-pill { display:none; position:absolute; top:63px; left:0; right:0; padding:18px 20px; border-radius:23px; flex-direction:column; align-items:stretch; gap:3px; }
-      .nav-pill.open { display:flex; }
-      .nav-pill .nav-cta { justify-content:space-between; margin-top:7px; }
-            .menu-btn { display:block; }
-      .lang-inline { display: flex; width: 100%; border-top: 1px solid rgba(22, 22, 22, .1); margin-top: 6px; padding-top: 2px; }
+/* ── the desk: the live grid the words are being set against ─────────── */
+.desk{
+  position:sticky;top:0;height:100svh;z-index:1;
+  padding:clamp(96px,13vh,140px) 0 clamp(20px,3vh,32px);
+  pointer-events:none;
+}
+.desk > .wrap{display:grid;grid-template-rows:auto 1fr;height:100%;min-height:0}
+.desk-top{display:flex;justify-content:space-between;gap:2rem;align-items:baseline}
+.readout{display:grid;gap:.32rem;font-family:var(--mono);font-size:.6875rem;letter-spacing:.1em}
+.readout .v{color:var(--set);font-size:.8125rem}
+.readout .bar{width:min(30vw,220px);height:2px;background:var(--rule);margin-top:.2rem;overflow:hidden}
+.readout .bar i{display:block;height:100%;width:0;background:var(--set);transform-origin:left}
 
-      .hero { display:block; min-height:auto; padding: 126px 0 80px; }
-      .hero-copy { padding-top:0; }
-      .hero-copy h1 { font-size: clamp(66px, 18vw, 110px); margin-top:22px; }
-      .hero-lede { font-size:23px; }
-      .hero-board { min-height: 460px; margin-top:75px; }
-      .board-main { top:0; width: 94%; height: 315px; padding:20px; }
-      .board-main h2 { margin-top:53px; font-size:63px; }
-      .board-small { width:53%; min-height:180px; bottom:6px; padding:17px; }
-      .board-small p { font-size:17px; }
-      .board-small::before { width:32px; height:32px; margin-bottom:22px; }
-      .board-tag { left:-10px; bottom:73px; }
-      .section { padding: 105px 0; }
-      .section-intro, .manifesto, .vai-wrap, .connect-grid { display:block; }
-      .partners-head { flex-direction:column; align-items:flex-start; margin-bottom:36px; }
-      .partners-head p { font-size:17px; }
-      .partners-grid { display:block; }
-      .partner-card { padding:22px; margin-bottom:12px; }
-      .partner-card .partner-logo { height:48px; margin-bottom:18px; }
-      .partner-card .partner-logo img { max-height:38px; }
-      .partner-card h3 { font-size:26px; }
-      .section-intro { margin-bottom:58px; }
-      .section-intro p { margin-top:30px; font-size:26px; }
-      .studio-facts { margin-bottom: 58px; gap: 12px 24px; line-height: 1.7; }
-      .manifesto-item, .manifesto-item:nth-child(odd), .manifesto-item:nth-child(even) { min-height:0; padding:22px 0; border-right:0; }
-      .direction-grid { display:block; }
-      .direction-lead { min-height:390px; }
-      .direction-list { margin-top:14px; }
-      .direction-item { min-height:200px; }
-      .vai-copy { margin-bottom:68px; }
-      .vai-copy h2 { font-size:116px; }
-      .vai-copy p { font-size:24px; }
-      .connect-copy { margin-bottom:68px; }
-      .contact-final { display:block; }
-      .contact-final a { display:block; margin-top:25px; }
-      footer { display:block; line-height:1.8; }
-      footer span:last-child { display:block; margin-top:8px; }
-    }
-  </style>
+/* the composition frame — one rectangle, showing the measure being set */
+.frame-box{position:relative;display:grid;place-items:center;padding-top:22vh}
+.frame{
+  position:absolute;left:0;right:0;top:64%;height:clamp(110px,17vh,190px);
+  border:1px solid var(--rule);border-radius:3px;
+  will-change:transform,opacity;
+  transform:translateY(-50%);
+}
+.frame::before,.frame::after{
+  content:"";position:absolute;top:50%;width:5px;height:5px;margin-top:-2.5px;
+  background:var(--set);border-radius:1px;
+}
+.frame::before{left:-3px}
+.frame::after{right:-3px}
+.frame .fm{
+  position:absolute;left:10px;bottom:-1.55em;
+  font-family:var(--mono);font-size:.625rem;letter-spacing:.14em;
+  color:var(--fg-mute);white-space:nowrap;
+}
+.frame-corner{
+  position:absolute;font-family:var(--mono);font-size:.625rem;
+  letter-spacing:.14em;color:var(--fg-mute);
+}
+.frame-corner.tl{left:0;top:calc(64% - clamp(110px,17vh,190px)/2 - 1.4em)}
+.frame-corner.tr{right:0;text-align:right;top:calc(64% - clamp(110px,17vh,190px)/2 - 1.4em)}
+
+.hero-close{
+  display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,.65fr);
+  gap:clamp(24px,4vw,64px);align-items:end;
+  padding-top:clamp(40px,8vh,90px);padding-bottom:clamp(30px,6vh,70px);
+}
+.hero-close-lede{max-width:40ch;color:var(--fg-dim);font-size:clamp(1.05rem,1.5vw,1.3rem);line-height:1.66}
+.hero-close-lede b{color:var(--fg);font-weight:600}
+.hero-close .acts{align-self:end;justify-self:start}
+.live{display:inline-flex;align-items:center;gap:.5rem}
+.live::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--set)}
+.acts{display:flex;gap:8px;flex-wrap:wrap}
+.act{
+  display:inline-flex;align-items:center;gap:.8rem;
+  padding:.72rem .8rem .72rem 1.1rem;border:1px solid var(--rule);border-radius:5px;
+  font-family:var(--mono);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;
+  transition:background 260ms var(--q),color 260ms var(--q),border-color 260ms var(--q);
+}
+.act i{font-style:normal;transition:transform 260ms var(--e)}
+.act:hover{background:var(--fg);color:var(--ground);border-color:var(--fg)}
+.act:hover i{transform:translate(3px,-3px)}
+.act--on{background:var(--set);border-color:var(--set);color:#fff}
+.act--on:hover{background:var(--fg);color:var(--ground);border-color:var(--fg)}
+
+.scroll-cue{
+  display:flex;align-items:center;gap:.7rem;
+  font-family:var(--mono);font-size:.6875rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--fg-mute);
+}
+.scroll-cue i{display:block;width:1px;height:34px;background:var(--rule);position:relative;overflow:hidden}
+.scroll-cue i::after{
+  content:"";position:absolute;inset:0;background:var(--set);
+  animation:cue 2.1s var(--q) infinite;
+}
+@keyframes cue{0%{transform:translateY(-100%)}60%,100%{transform:translateY(100%)}}
+
+/* ═══ 5 · SPEC — who we are, as fields ═══════════════════════════════ */
+.spec{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.spec-row{
+  display:grid;grid-template-columns:minmax(0,10rem) minmax(0,1fr);gap:1.5rem;
+  padding:clamp(18px,2.2vw,26px) 0;border-bottom:1px solid var(--rule-soft);
+}
+.spec-row:last-child{border-bottom:0}
+.spec-row dt{font-family:var(--mono);font-size:.6875rem;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-mute);padding-top:.35rem}
+.spec-row dd{margin:0;font-size:clamp(1.15rem,2.1vw,1.7rem);letter-spacing:-.025em;line-height:1.25;font-weight:500}
+.spec-row dd em{font-style:normal;color:var(--set)}
+.dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--set);margin-right:.5rem;vertical-align:middle}
+
+/* ═══ 6 · PROCESS — four stages, chained ══════════════════════════════ */
+.sec{padding-block:clamp(72px,11vh,152px)}
+.sec + .sec{border-top:1px solid var(--rule)}
+.sec-head{
+  display:grid;grid-template-columns:minmax(0,8rem) minmax(0,1fr);gap:1.5rem;
+  padding-bottom:clamp(28px,4vw,48px);margin-bottom:clamp(28px,4vw,52px);
+  border-bottom:1px solid var(--rule);
+}
+.sec-head h2{font-size:clamp(1.6rem,3.6vw,2.9rem);letter-spacing:-.035em;font-weight:600;line-height:1.1}
+.sec-head p{margin-top:1rem;max-width:46ch;color:var(--fg-dim);line-height:1.7}
+.stage{
+  position:relative;display:grid;
+  grid-template-columns:minmax(0,7rem) minmax(0,1.05fr) minmax(0,1fr);
+  gap:clamp(16px,3vw,44px);align-items:start;
+  padding:clamp(24px,3.4vw,46px) 0;border-bottom:1px solid var(--rule-soft);
+  transition:padding-inline 380ms var(--e),background 380ms var(--q);
+}
+.stage:last-child{border-bottom:0}
+.stage::before{content:"";position:absolute;left:1.05rem;top:0;width:1px;height:100%;background:var(--rule-soft)}
+.chain > .stage:first-child::before{top:1.4rem}
+.chain > .stage:last-child::before{height:calc(100% - 3rem)}
+.stage::after{
+  content:"";position:absolute;left:calc(1.05rem - 2.5px);top:1.4rem;
+  width:6px;height:6px;border-radius:50%;background:var(--ground-2);
+  transition:background 380ms var(--q),transform 380ms var(--e);
+}
+.stage:hover{padding-inline:1rem 0;background:rgba(244,244,241,.02)}
+.stage:hover::after{background:var(--set);transform:scale(1.7)}
+.stage-i{font-family:var(--mono);font-size:.6875rem;letter-spacing:.16em;color:var(--fg-mute);padding-top:.6rem}
+.stage h3{font-size:clamp(1.4rem,2.9vw,2.3rem);letter-spacing:-.035em;line-height:1.1;font-weight:600}
+.stage h3 small{
+  display:block;font-family:var(--mono);font-size:.6875rem;letter-spacing:.16em;
+  color:var(--fg-mute);font-weight:400;margin-bottom:.7rem;text-transform:uppercase;
+}
+.stage-b{color:var(--fg-dim);line-height:1.75;max-width:38ch}
+.stage-b dl{margin-top:1.3rem;display:grid;gap:.45rem;padding-top:1rem;border-top:1px solid var(--rule-soft)}
+.stage-b dl > div{display:flex;justify-content:space-between;gap:1.2rem;font-family:var(--mono);font-size:.6875rem;letter-spacing:.1em}
+.stage-b dt{color:var(--fg-mute);text-transform:uppercase}
+.stage-b dd{margin:0;color:var(--fg)}
+
+/* ═══ 7 · WORK — lanes, each saying something different on hover ══════ */
+.lane{
+  position:relative;display:grid;
+  grid-template-columns:minmax(0,4rem) minmax(0,1fr) minmax(0,1.05fr) auto;
+  gap:clamp(14px,2.4vw,36px);align-items:center;
+  padding:clamp(22px,3vw,38px) 0;border-bottom:1px solid var(--rule-soft);
+  isolation:isolate;transition:padding-inline 380ms var(--e);
+}
+.lane:first-of-type{border-top:1px solid var(--rule-soft)}
+.lane::before{
+  content:"";position:absolute;inset:0;z-index:-1;background:var(--fg);
+  transform:scaleY(0);transform-origin:bottom;transition:transform 480ms var(--e);
+}
+.lane:hover{padding-inline:1.2rem;color:var(--ground)}
+.lane:hover::before{transform:scaleY(1)}
+.lane:hover p,.lane:hover .lane-i{color:rgba(13,13,12,.66)}
+.lane:hover .lane-x{color:var(--set);transform:translateX(5px)}
+.lane-i{font-family:var(--mono);font-size:.6875rem;letter-spacing:.16em;color:var(--fg-mute)}
+.lane h3{font-size:clamp(1.3rem,2.6vw,2.1rem);letter-spacing:-.035em;line-height:1.08;font-weight:600}
+.lane p{color:var(--fg-dim);line-height:1.7;max-width:40ch}
+.lane-x{
+  font-family:var(--mono);font-size:.6875rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--fg-mute);white-space:nowrap;transition:color 380ms var(--q),transform 380ms var(--e);
+}
+
+/* ═══ 8 · vAI ═════════════════════════════════════════════════════════ */
+.vai{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,5vw,84px);align-items:center}
+.vai-mark{font-size:clamp(3.6rem,12vw,10rem);line-height:.84;letter-spacing:-.055em;font-weight:700}
+.vai-mark em{font-style:normal;color:var(--set)}
+.vai .lede{margin-top:1.6rem;max-width:32ch;color:var(--fg-dim);font-size:clamp(1rem,1.4vw,1.2rem);line-height:1.6}
+.links{border-top:1px solid var(--rule)}
+.links a{
+  display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:1.2rem;align-items:baseline;
+  padding:1.15rem 0;border-bottom:1px solid var(--rule-soft);
+  transition:padding-inline 380ms var(--e),color 260ms var(--q);
+}
+.links a:hover{padding-inline:1rem 0;color:var(--set)}
+.links .k{font-family:var(--mono);font-size:.6875rem;letter-spacing:.16em;color:var(--fg-mute)}
+.links b{font-size:clamp(1.05rem,1.8vw,1.45rem);font-weight:600;letter-spacing:-.025em}
+.links .u{font-family:var(--mono);font-size:.6875rem;color:var(--fg-mute);letter-spacing:.08em}
+
+/* ═══ 9 · DEPENDENCY ══════════════════════════════════════════════════ */
+.dep{display:grid;gap:2px}
+.dep-row{
+  display:grid;grid-template-columns:minmax(0,7rem) minmax(0,1fr) auto auto;
+  gap:clamp(14px,2.4vw,32px);align-items:center;
+  padding:clamp(18px,2.4vw,28px) clamp(16px,2vw,24px);
+  background:var(--ground-2);border:1px solid var(--rule-soft);border-radius:4px;
+  transition:background 320ms var(--q),border-color 320ms var(--q);
+}
+.dep-row:hover{background:var(--fg);border-color:var(--fg);color:var(--ground)}
+.dep-row:hover .dep-k,.dep-row:hover .dep-name small,.dep-row:hover .dep-go{color:rgba(13,13,12,.6)}
+.dep-row:hover .dep-go{color:var(--set-lo)}
+.dep-k{font-family:var(--mono);font-size:.6875rem;letter-spacing:.16em;color:var(--fg-mute)}
+.dep-name{font-size:clamp(1.05rem,2vw,1.5rem);font-weight:600;letter-spacing:-.03em;line-height:1.15}
+.dep-name small{display:block;font-size:.6em;font-weight:400;color:var(--fg-mute);letter-spacing:0;margin-top:.35em}
+.dep-logo{height:32px;display:flex;align-items:center}
+.dep-logo img{max-height:26px;width:auto;background:#fff;padding:4px 8px;border-radius:2px}
+.dep-go{
+  font-family:var(--mono);font-size:.6875rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--fg-mute);display:flex;align-items:center;gap:.6rem;white-space:nowrap;
+  transition:color 320ms var(--q);
+}
+.dep-note{margin-top:clamp(24px,3.4vw,40px);color:var(--fg-dim);line-height:1.8;max-width:58ch}
+
+/* ═══ 10 · FOOTER ═════════════════════════════════════════════════════ */
+.ftr{border-top:1px solid var(--rule);padding-block:clamp(56px,8vh,96px) clamp(28px,4vh,40px)}
+.ftr-top{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2.5rem;align-items:end;padding-bottom:clamp(36px,5vh,60px)}
+.ftr h2{font-size:clamp(2.2rem,6.4vw,5.4rem);line-height:.96;letter-spacing:-.045em;font-weight:600}
+.ftr h2 em{font-style:normal;color:var(--set)}
+.ftr-mail{text-align:right}
+.ftr-mail a{
+  font-size:clamp(1rem,2.1vw,1.6rem);letter-spacing:-.02em;
+  border-bottom:1px solid var(--rule);padding-bottom:.3rem;
+  transition:color 300ms var(--q),border-color 300ms var(--q);
+}
+.ftr-mail a:hover{color:var(--set);border-color:var(--set)}
+.ftr-mail p{margin-top:.9rem;font-family:var(--mono);font-size:.6875rem;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-mute)}
+.ftr-list{border-top:1px solid var(--rule-soft)}
+.ftr-list a,.ftr-list button{
+  display:grid;grid-template-columns:minmax(0,3rem) minmax(0,1fr) auto;gap:1.2rem;
+  align-items:baseline;width:100%;text-align:left;
+  padding:1rem 0;border-bottom:1px solid var(--rule-soft);
+  transition:padding-inline 380ms var(--e),color 260ms var(--q);
+}
+.ftr-list a:hover,.ftr-list button:hover{padding-inline:1rem 0;color:var(--set)}
+.ftr-list .k{font-family:var(--mono);font-size:.6875rem;letter-spacing:.16em;color:var(--fg-mute)}
+.ftr-list b{font-size:clamp(1rem,1.7vw,1.35rem);font-weight:600;letter-spacing:-.02em}
+.ftr-list .u{font-family:var(--mono);font-size:.6875rem;color:var(--fg-mute);letter-spacing:.08em}
+.ftr-bar{
+  display:flex;flex-wrap:wrap;justify-content:space-between;gap:1.2rem;
+  padding-top:clamp(20px,3vh,32px);
+  font-family:var(--mono);font-size:.6875rem;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-mute);
+}
+.ftr-bar nav{display:flex;gap:1.4rem;flex-wrap:wrap}
+.ftr-bar a:hover{color:var(--fg)}
+
+
+/* ═══ 12 · THE SCHEDULE ════════════════════════════════════════════════
+   B4: the hero is not the whole budget. B2: and no two sections may arrive
+   the same way. Each band below owns ONE mechanism, taken from what it is
+   actually describing, and every one of them is driven by the wheel — so
+   reversing the scroll plays them backwards for free.
+
+   Base CSS is always the FINISHED state; the motion lives inside @supports,
+   so a browser without scroll timelines renders the composition, not a
+   blank page.                                                      */
+@supports (animation-timeline:view()){
+  /* ── 01 PROCESS · the chain line is drawn as you descend it ─────────── */
+  .chain{position:relative}
+  .chain::before{
+    content:"";position:absolute;left:1.05rem;top:1.4rem;bottom:1.4rem;width:1px;
+    background:var(--set);transform-origin:top;transform:scaleY(0);
+    animation-name:draw-line;animation-duration:1ms;animation-timing-function:linear;
+    animation-fill-mode:both;animation-timeline:view();
+    animation-range:cover 4% cover 62%;
+  }
+  @keyframes draw-line{to{transform:scaleY(1)}}
+
+  /* each stage ignites when the line reaches it — the dot is the payload */
+  .stage::after{
+    animation-name:node;animation-duration:1ms;animation-timing-function:linear;
+    animation-fill-mode:both;animation-timeline:view();
+  }
+  .chain > .stage:nth-child(1)::after{animation-range:cover 4%  cover 14%}
+  .chain > .stage:nth-child(2)::after{animation-range:cover 22% cover 32%}
+  .chain > .stage:nth-child(3)::after{animation-range:cover 40% cover 50%}
+  .chain > .stage:nth-child(4)::after{animation-range:cover 58% cover 68%}
+  @keyframes node{
+    from{background:var(--ground-2);transform:scale(1)}
+    to  {background:var(--set);transform:scale(1.7)}
+  }
+
+  /* ── 02 WORK · each lane's rule is ruled across, left to right ─────── */
+  .lane::after{
+    content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;
+    background:var(--set);transform-origin:left;transform:scaleX(0);
+    animation-name:rule;animation-duration:1ms;animation-timing-function:linear;
+    animation-fill-mode:both;animation-timeline:view();
+  }
+  .lane:nth-of-type(1)::after{animation-range:cover 2% cover 26%}
+  .lane:nth-of-type(2)::after{animation-range:cover 10% cover 34%}
+  .lane:nth-of-type(3)::after{animation-range:cover 18% cover 42%}
+  @keyframes rule{to{transform:scaleX(1)}}
+
+  /* the label slides out of its column as the row settles */
+  .lane h3{
+    animation-name:seat;animation-duration:1ms;animation-timing-function:linear;
+    animation-fill-mode:both;animation-timeline:view();
+  }
+  .lane:nth-of-type(1) h3{animation-range:cover 0%  cover 22%}
+  .lane:nth-of-type(2) h3{animation-range:cover 8%  cover 30%}
+  .lane:nth-of-type(3) h3{animation-range:cover 16% cover 38%}
+  @keyframes seat{
+    from{opacity:.001;transform:translateX(-18px)}
+    to  {opacity:1;transform:none}
+  }
+
+  /* ── 03 vAI · the mark itself gets set — same mechanic, smaller ───── */
+  .vai-mark{
+    animation-name:mark-set;animation-duration:1ms;animation-timing-function:linear;
+    animation-fill-mode:both;animation-timeline:view();
+    animation-range:cover 2% cover 46%;
+  }
+  @keyframes mark-set{
+    from{opacity:.001;letter-spacing:.24em;transform:translateY(10px)}
+    to  {opacity:1;letter-spacing:-.055em;transform:none}
+  }
+  .links a{
+    animation-name:row-in;animation-duration:1ms;animation-timing-function:linear;
+    animation-fill-mode:both;animation-timeline:view();
+  }
+  .links a:nth-child(1){animation-range:cover 12% cover 34%}
+  .links a:nth-child(2){animation-range:cover 18% cover 40%}
+  .links a:nth-child(3){animation-range:cover 24% cover 46%}
+  @keyframes row-in{
+    from{opacity:.001;transform:translateX(-12px)}
+    to  {opacity:1;transform:none}
+  }
+
+  /* ── 04 STACK · the layers actually stack: bottom first, us last ───── */
+  .dep-row{
+    animation-name:settle;animation-duration:1ms;animation-timing-function:linear;
+    animation-fill-mode:both;animation-timeline:view();
+  }
+  .dep-row:nth-child(1){animation-range:cover 6%  cover 30%}
+  .dep-row:nth-child(2){animation-range:cover 14% cover 38%}
+  .dep-row:nth-child(3){animation-range:cover 22% cover 46%}
+  @keyframes settle{
+    from{opacity:.001;transform:translateY(46px)}
+    to  {opacity:1;transform:none}
+  }
+
+  /* ── 00 STUDIO · the spec fields fill in, one value at a time ──────── */
+  .spec-row dd{
+    animation-name:fill;animation-duration:1ms;animation-timing-function:linear;
+    animation-fill-mode:both;animation-timeline:view();
+  }
+  .spec-row:nth-child(1) dd{animation-range:cover 2%  cover 24%}
+  .spec-row:nth-child(2) dd{animation-range:cover 8%  cover 30%}
+  .spec-row:nth-child(3) dd{animation-range:cover 14% cover 36%}
+  .spec-row:nth-child(4) dd{animation-range:cover 20% cover 42%}
+  .spec-row:nth-child(5) dd{animation-range:cover 26% cover 48%}
+  @keyframes fill{
+    from{opacity:.001;clip-path:inset(0 100% 0 0)}
+    to  {opacity:1;clip-path:inset(0 0 0 0)}
+  }
+
+  /* ── section heads · a rule draws under them as they take the floor ── */
+  .sec-head{
+    animation-name:head;animation-duration:1ms;animation-timing-function:linear;
+    animation-fill-mode:both;animation-timeline:view();
+    animation-range:cover 0% cover 18%;
+  }
+  @keyframes head{
+    from{opacity:.001;transform:translateY(12px)}
+    to  {opacity:1;transform:none}
+  }
+}
+
+/* ═══ 11 · MOTION — the scroll budget is a schedule, not a firework ═══
+   Arrivals below the hero are the second and third set-piece only. Everything
+   else is already on screen. Nothing here controls visibility: if the clock
+   stalls or the observer misfires, the page is still readable.             */
+@keyframes lift{from{opacity:.001;transform:translateY(20px)}to{opacity:1;transform:none}}
+.js .lift{animation:lift 700ms var(--e) both}
+.js [data-d]{animation-delay:var(--d)}
+
+/* the pointer-driven frame — handfeel §7: 1-exp(-k·dt), no spring, no
+   correction after the filter. It arrives and stops.                     */
+
+@media (max-width:900px){
+  .hdr nav{
+    position:fixed;inset:0;display:flex;flex-direction:column;
+    align-items:flex-start;justify-content:center;gap:1rem;
+    padding:0 8vw;background:var(--ground);font-size:1.35rem;
+    letter-spacing:0;text-transform:none;
+    clip-path:inset(0 0 100% 0);transition:clip-path 440ms var(--e);
+  }
+  .hdr nav.open{clip-path:inset(0 0 0 0)}
+  .burger{display:flex;z-index:2}
+  .grid-cols{display:none}
+  .line.b,.line.c{padding-left:0}
+  .desk-bot{grid-template-columns:1fr;gap:1.6rem}
+  .readout{display:none}
+  .stage{grid-template-columns:minmax(0,3rem) minmax(0,1fr);gap:1.2rem}
+  .stage-b{grid-column:2}
+  .stage::before{left:.7rem}
+  .stage::after{left:calc(.7rem - 2.5px)}
+  .lane{grid-template-columns:minmax(0,2.6rem) minmax(0,1fr);gap:1.2rem;align-items:start}
+  .lane p,.lane-x{grid-column:2}
+  .vai{grid-template-columns:1fr;gap:2.6rem}
+  .dep-row{grid-template-columns:1fr;gap:.8rem}
+  .ftr-top{grid-template-columns:1fr;gap:1.8rem;align-items:start}
+  .ftr-mail{text-align:left}
+  .frame-corner{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.01ms!important;animation-iteration-count:1!important;
+    transition-duration:.01ms!important;scroll-behavior:auto!important;
+  }
+  .scroll-cue i::after{animation:none;transform:translateY(0)}
+  .grid-lines,.grid-cols{opacity:1}
+}
+</style>
 </head>
 <body>
-  <a href="#main" style="position:absolute;left:-9999px">跳转到主要内容</a>
-  <header class="shell topbar">
-    <a class="logo-pill" href="#top" aria-label="XMZF sTudio 首页"><span class="logo-strong">XMZF</span><span class="logo-studio">sTudio</span></a>
-    <button class="menu-btn" aria-label="打开菜单" aria-expanded="false">☰</button>
-    <nav class="nav-pill" aria-label="主导航">
-      <a href="#studio">关于</a>
-      <a href="#direction">方向</a>
-      <a href="#vai">vAI</a>
-      <a href="#partners">伙伴</a>
-      <a href="#connect">联系</a>
-            <div class="lang-inline"><a class="lang-inline-item current" href="index.html">中文</a><span class="lang-sep">/</span><a class="lang-inline-item" href="index-en.html">EN</a></div>
-      <a class="nav-cta" href="https://github.com/xmzf" target="_blank" rel="noreferrer">GitHub <i>↗</i></a>
-    </nav>
-  </header>
+<a class="skip" href="#main">跳到主要内容</a>
 
-  <main id="main">
-    <section class="shell hero" id="top">
-      <div class="hero-copy">
-        <span class="eyebrow">Independent creative studio / Est. 2024</span>
-        <h1><span class="light">Designing</span><br><span>in <span class="orange">motion.</span></span></h1>
-        <p class="hero-lede">我们把想法做成可见、可用，也值得被记住的东西。</p>
-        <div class="hero-formula">code <span class="formula-mark">×</span> art <span class="formula-mark">=</span> ∞</div>
-        <div class="hero-actions"><a class="btn btn-dark" href="#studio">了解 XMZF <span class="btn-arrow">↘</span></a><a class="btn" href="https://vai.xmzf.space" target="_blank" rel="noreferrer">进入 vAI <span class="btn-arrow">↗</span></a></div>
-      </div>
-      <div class="hero-board" aria-label="XMZF Studio 视觉档案">
-        <div class="board-main"><div class="board-top"><span>XMZF / 001</span><span>STUDIO NOTES</span></div><h2>Ideas<br>in <span>motion</span></h2><p>Interfaces, identities, and useful experiments from Guangzhou.</p><div class="board-ruler"><span>2024</span><span>2026</span><span>ONGOING</span></div></div>
-        <div class="board-small"><p>Good work starts with a strange idea.</p><small>FIELD NOTE / 024</small></div>
-        <span class="board-tag">A SMALL STUDIO WITH A MOVING MIND</span>
-      </div>
-    </section>
+<div class="grid-lines" id="gLines" aria-hidden="true"></div>
+<div class="grid-cols" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
 
-    <div class="marquee"><div class="marquee-track"><span>WEB <i></i> IDENTITY <i></i> INTERACTION <i></i> AI RESEARCH <i></i></span><span>WEB <i></i> IDENTITY <i></i> INTERACTION <i></i> AI RESEARCH <i></i></span></div></div>
+<header class="hdr" id="hdr">
+  <a class="brand" href="#top">XMZF<s> / STUDIO</s></a>
+  <button class="burger" id="burger" aria-label="菜单" aria-expanded="false" aria-controls="nav"><i></i><i></i></button>
+  <nav id="nav" aria-label="主导航">
+    <a href="#studio">工作室</a>
+    <a href="#process">工序</a>
+    <a href="#work">方向</a>
+    <a href="#vai">vAI</a>
+    <a href="#stack">依赖</a>
+    <a href="#connect">联系</a>
+    <a href="index-en.html">EN</a>
+  </nav>
+</header>
 
-    <section class="section shell" id="studio">
-      <div class="section-intro reveal"><div><span class="eyebrow">01 / About the studio</span><h2>Make it<br><span class="serif">matter.</span></h2></div><p>XMZF Studio 是一支来自广州、面向远程的年轻创意小队。我们在设计、制作和研究之间来回切换，保持好奇，也保持交付。</p></div>
-      <div class="studio-facts reveal"><span>EST. <b>2024</b></span><span>BASED IN <b>GUANGZHOU / REMOTE</b></span><span>STRUCTURE <b>STUDIO + vAI</b></span></div>
-      <div class="manifesto">
-        <article class="manifesto-item reveal"><small>01 / 做清楚</small><h3>表达先于装饰</h3><p>先找到真正想说的，再决定它该长什么样。少一点噪音，多一点判断。</p></article>
-        <article class="manifesto-item reveal"><small>02 / 做好用</small><h3>漂亮也要能工作</h3><p>网页、品牌和交互最终都要回到人的使用里，细节不是附加项。</p></article>
-        <article class="manifesto-item reveal"><small>03 / 做有趣</small><h3>给实验留一点位置</h3><p>不把每个项目都做成同一个答案。我们欢迎新的问题，也接受必要的绕路。</p></article>
-        <article class="manifesto-item reveal"><small>04 / 做长期</small><h3>小团队也可以认真</h3><p>价格友好、沟通直接、交付到位。认真对待每一份合作和每一个想法。</p></article>
-      </div>
-    </section>
+<main id="main">
 
-    <section class="section direction" id="direction">
-      <div class="shell">
-        <div class="section-intro reveal"><div><span class="eyebrow">02 / What we do</span><h2>Three ways<br>to <span class="serif">move.</span></h2></div><p>从一块空白画布开始，到一个真实的人愿意停下来、点进去、用起来。</p></div>
-        <div class="direction-grid">
-          <article class="direction-lead reveal"><small class="mono">A / 01</small><h3>网页与<br>品牌官网</h3><p>从结构、视觉到上线，做一个真正代表你的数字门面。</p></article>
-          <div class="direction-list">
-            <article class="direction-item reveal"><small>B / 02</small><h3>交互体验</h3><p>动效、叙事、产品界面与每一次点击之间的节奏。</p></article>
-            <article class="direction-item reveal"><small>C / 03</small><h3>品牌视觉</h3><p>字标、配色、基础识别，以及它们如何进入真实世界。</p></article>
-          </div>
+<!-- ══ HERO — 340vh. Every word is scrubbed by the wheel. ═════════════ -->
+<section class="hero" id="top">
+  <!-- the desk is a SPARSE layer: measure, frame, corner labels. No prose —
+       prose in a sticky layer sits exactly where the type has to travel. -->
+  <div class="desk" aria-hidden="true">
+    <div class="wrap">
+      <div class="desk-top">
+        <p class="lbl">Setting</p>
+        <div class="readout" id="readout">
+          <span>MEASURE</span><span class="v n" id="rMeasure">—</span>
+          <span class="bar"><i id="rBar"></i></span>
+          <span id="rState">UNSET</span>
         </div>
       </div>
-    </section>
-
-    <section class="section shell" id="vai">
-      <div class="vai-wrap">
-        <div class="vai-copy reveal"><span class="eyebrow">03 / A part of XMZF</span><h2>v<span>AI</span></h2><p>XMZF 旗下的 AI 产品工作室。和一群年轻的开发者一起，做实用的工具，也研究还没有答案的问题。</p></div>
-        <div class="reveal"><div class="vai-index"><a class="vai-link" href="https://vai.xmzf.space" target="_blank" rel="noreferrer"><strong>进入 vAI 工作室</strong><span>vai.xmzf.space</span><b>↗</b></a><a class="vai-link" href="https://github.com/XMZF-vAI" target="_blank" rel="noreferrer"><strong>XMZF-vAI / GitHub</strong><span>Open source</span><b>↗</b></a><a class="vai-link" href="mailto:vai@xmzf.space"><strong>联系 vAI</strong><span>vai@xmzf.space</span><b>↗</b></a></div><div class="vai-note">AI PRODUCT STUDIO<br>RESEARCH · TOOLS · USEFUL THINGS</div></div>
+      <div class="frame-box">
+        <p class="frame-corner tl n" id="cornerTL">COL 01 — 12</p>
+        <p class="frame-corner tr n">BASELINE 4.0</p>
+        <div class="frame" id="frame"><span class="fm n" id="fMsg">等待排版…</span></div>
       </div>
-    </section>
+    </div>
+  </div>
 
-    <section class="section shell" id="partners">
-      <div class="partners-head reveal"><div><span class="eyebrow">04 / Building with</span><h2>We don't<br><span>work alone.</span></h2></div><p>API 层、认证层这些底层活，我们交给更专业的人。下面这两家工作室是 XMZF 的长期基础设施伙伴。</p></div>
-      <div class="partners-grid">
-        <article class="partner-card"><div class="partner-meta"><span>INFRASTRUCTURE · AUTH</span><span>EST. 2018</span></div><div class="partner-logo"><img src="assets/rtstudio.png" alt="热土工作室 RTStudio" /></div><h3>热土工作室<br><span>RTStudio</span></h3><p>统一用户认证与授权系统。管好用户的权限、登录和会话状态，是很多产品最早也要最常被低估的一块基础活。</p><a class="partner-link" href="https://rtstu.com" target="_blank" rel="noreferrer">访问 rtstu.com <i>↗</i></a></article>
-        <article class="partner-card"><div class="partner-meta"><span>INFRASTRUCTURE · AI API</span><span>EST. 2024</span></div><div class="partner-logo"><img src="assets/lunora.png" alt="Lunora API" /></div><h3>Lunora<br><span>API</span></h3><p>一个统一网关背后接通多个大模型，按用量和场景调度，适合不想自己分别接各家的小团队。</p><a class="partner-link" href="https://www.uselunora.com" target="_blank" rel="noreferrer">访问 uselunora.com <i>↗</i></a></article>
-      </div>
-    </section>
+  <div class="hero-flow">
+    <div class="wrap">
+      <p class="hero-lede">
+        <span>Independent creative studio</span>
+        <span>广州 / 远程</span>
+        <span>Est. <b class="n">2024</b></span>
+        <span class="live">接活中</span>
+      </p>
 
-    <section class="section connect" id="connect">
-      <div class="shell">
-        <div class="connect-grid">
-          <div class="connect-copy reveal"><span class="eyebrow">05 / Find us</span><h2>Say<br><span class="serif">hello.</span></h2><p>项目、合作、野生想法，或者只是想认识我们，都可以直接发邮件。</p></div>
-          <div class="contact-list reveal">
-            <a class="contact-row" href="mailto:xmzf@xmzf.space"><strong>一般咨询</strong><span>xmzf@xmzf.space ↗</span></a>
-            <a class="contact-row" href="mailto:support@xmzf.space"><strong>服务支持</strong><span>support@xmzf.space ↗</span></a>
-            <a class="contact-row" href="https://b23.tv/89YwEi4" target="_blank" rel="noreferrer"><strong>Bilibili</strong><span>XMZFsTudio ↗</span></a>
-            <a class="contact-row" href="https://x.com/xmzfstudio?s=21" target="_blank" rel="noreferrer"><strong>X / Twitter</strong><span>@xmzfstudio ↗</span></a>
-            <a class="contact-row" href="https://www.youtube.com/@XMZFstudio" target="_blank" rel="noreferrer"><strong>YouTube</strong><span>@XMZFstudio ↗</span></a>
-            <button class="contact-row wechat" id="wechat" type="button"><strong>微信公众号</strong><span>XMZFSTUDIO · 点击复制</span></button>
-            <a class="contact-row" href="https://github.com/xmzf" target="_blank" rel="noreferrer"><strong>GitHub</strong><span>github.com/xmzf ↗</span></a>
-          </div>
+      <h1 class="type" aria-label="把想法，排成能用的东西"><span class="line a"><span class="w t">把</span><span class="w t">想法，</span></span><span class="line b"><span class="w t">排成</span><span class="w t">能用的</span></span><span class="line c"><span class="w t acc">东西。</span></span></h1>
+
+      <div class="hero-close">
+        <p class="hero-close-lede">我们不卖「好看」。我们把还没成形的东西，排成一个能被用起来的东西——<b>先有结构，再有样式，最后才谈好看。</b>设计稿即代码，上线之后还在维护。</p>
+        <div class="acts">
+          <a class="act act--on" href="#process">看工序 <i aria-hidden="true">↓</i></a>
+          <a class="act" href="https://vai.xmzf.space" target="_blank" rel="noopener noreferrer">进入 vAI <i aria-hidden="true">↗</i></a>
         </div>
-        <div class="contact-final reveal"><strong>一起做点东西。</strong><a href="mailto:xmzf@xmzf.space">xmzf@xmzf.space ↗</a></div>
+        <p class="scroll-cue"><i aria-hidden="true"></i> 滚动即排版</p>
       </div>
-    </section>
-  </main>
-  <footer class="shell"><span>© 2024—2026 XMZF STUDIO</span><span>DESIGNED &amp; BUILT IN-HOUSE / GUANGZHOU—REMOTE</span></footer>
+    </div>
+  </div>
+</section>
 
-  <script>
-    const menu = document.querySelector('.menu-btn');
-    const nav = document.querySelector('.nav-pill');
-    menu?.addEventListener('click', () => { const open = nav.classList.toggle('open'); menu.setAttribute('aria-expanded', open); });
-    nav?.querySelectorAll('a').forEach(link => link.addEventListener('click', () => { nav.classList.remove('open'); menu?.setAttribute('aria-expanded', 'false'); }));
-    const observer = new IntersectionObserver(entries => entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('in-view'); observer.unobserve(entry.target); } }), { threshold: .12 });
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-    document.querySelector('#wechat')?.addEventListener('click', async () => { try { await navigator.clipboard.writeText('XMZFSTUDIO'); } catch (_) {} const target = document.querySelector('#wechat span'); const old = target.textContent; target.textContent = '已复制：XMZFSTUDIO'; setTimeout(() => target.textContent = old, 1800); });
-  </script>
+<!-- ══ STUDIO — as fields, not as adjectives ═════════════════════════ -->
+<section class="sec wrap" id="studio">
+  <dl class="spec lift">
+    <div class="spec-row"><dt>我们是谁</dt><dd>一支小到每个人都能被叫到名字的团队</dd></div>
+    <div class="spec-row"><dt>在哪</dt><dd>广州，远程工作，<em>时区不是问题</em></dd></div>
+    <div class="spec-row"><dt>做什么</dt><dd>网站 · 品牌 · 交互 · 一个 AI 产品工作室</dd></div>
+    <div class="spec-row"><dt>怎么合作</dt><dd>先聊清楚要解决什么，<em>再报价</em></dd></div>
+    <div class="spec-row"><dt>现在</dt><dd><span class="dot"></span>接活中</dd></div>
+  </dl>
+</section>
+
+<!-- ══ PROCESS — the actual sequence ══════════════════════════════════ -->
+<section class="sec wrap" id="process">
+  <div class="sec-head lift">
+    <span class="lbl n">01</span>
+    <div>
+      <h2>四步，按顺序</h2>
+      <p>不是四个卖点，是一条真的工序。跳步的活我们会跟你商量；商量不通，就不接。</p>
+    </div>
+  </div>
+
+  <div class="chain">
+    <article class="stage lift">
+      <span class="stage-i n">01</span>
+      <h3><small>Position</small>定位</h3>
+      <div class="stage-b">
+        <p>搞清楚这东西是给谁用的、解决什么。答不上来就先别画——这一步不做，后面全是返工。</p>
+        <dl><div><dt>产出</dt><dd>一句话定位</dd></div><div><dt>工期</dt><dd>占全项目 15%</dd></div></dl>
+      </div>
+    </article>
+
+    <article class="stage lift" data-d="70ms">
+      <span class="stage-i n">02</span>
+      <h3><small>Structure</small>结构</h3>
+      <div class="stage-b">
+        <p>信息怎么排、路径怎么走、内容先说什么。这些决定在画第一根线之前，不在配色之后。</p>
+        <dl><div><dt>产出</dt><dd>线框与站点图</dd></div><div><dt>卡点</dt><dd>客户改需求</dd></div></dl>
+      </div>
+    </article>
+
+    <article class="stage lift" data-d="140ms">
+      <span class="stage-i n">03</span>
+      <h3><small>Make</small>制作</h3>
+      <div class="stage-b">
+        <p>设计稿就是代码。我们不画完再切图——你看到的就是最后跑的，且能在真机上验证。</p>
+        <dl><div><dt>产出</dt><dd>可上线的站点</dd></div><div><dt>原则</dt><dd>不做假界面</dd></div></dl>
+      </div>
+    </article>
+
+    <article class="stage lift" data-d="210ms">
+      <span class="stage-i n">04</span>
+      <h3><small>Keep</small>维护</h3>
+      <div class="stage-b">
+        <p>上线不是结束。改了文案、加了一页功能，或者只是想找人聊聊怎么改更好，都回来找我们。</p>
+        <dl><div><dt>承诺</dt><dd>长期可维护</dd></div><div><dt>形式</dt><dd>按次 / 包年</dd></div></dl>
+      </div>
+    </article>
+  </div>
+
+</section>
+
+<!-- ══ WORK ═══════════════════════════════════════════════════════════ -->
+<section class="sec" id="work">
+  <div class="wrap">
+    <div class="sec-head lift">
+      <span class="lbl n">02</span>
+      <div>
+        <h2>三个方向</h2>
+        <p>一个人可以同时做这三件事，因为它们本来就是一件事：让东西被看见、被记住、被用起来。</p>
+      </div>
+    </div>
+
+    <a class="lane lift" href="#connect">
+      <span class="lane-i n">A</span>
+      <h3>网站与品牌官网</h3>
+      <p>从信息架构到上线部署。做一个真的能代表你、也能带来客户的门面。</p>
+      <span class="lane-x">聊项目 ↗</span>
+    </a>
+    <div class="lane lift" data-d="80ms">
+      <span class="lane-i n">B</span>
+      <h3>交互体验</h3>
+      <p>动效、叙事、产品界面，以及点击之间的节奏。手感是可以被设计出来的。</p>
+      <span class="lane-x">主力方向</span>
+    </div>
+    <div class="lane lift" data-d="160ms">
+      <span class="lane-i n">C</span>
+      <h3>品牌视觉</h3>
+      <p>字标、配色、基础识别，以及它们走进真实世界的样子——名片、屏幕、说明书。</p>
+      <span class="lane-x">按需</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══ vAI ════════════════════════════════════════════════════════════ -->
+<section class="sec wrap" id="vai">
+  <div class="vai">
+    <div class="lift">
+      <p class="lbl" style="margin-bottom:1.4rem">03 — 旗下工作室</p>
+      <p class="vai-mark" aria-hidden="true">v<em>AI</em></p>
+      <p class="lede">一群年轻开发者。做真会有人用的工具，也研究还没答案的问题——研究不摆出来给人看。</p>
+    </div>
+    <div class="lift" data-d="90ms">
+      <div class="links">
+        <a href="https://vai.xmzf.space" target="_blank" rel="noopener noreferrer"><span class="k">01</span><b>进入 vAI 工作室</b><span class="u">vai.xmzf.space ↗</span></a>
+        <a href="https://github.com/XMZF-vAI" target="_blank" rel="noopener noreferrer"><span class="k">02</span><b>开源项目</b><span class="u">github.com/XMZF-vAI ↗</span></a>
+        <a href="https://github.com/xmzf" target="_blank" rel="noopener noreferrer"><span class="k">03</span><b>组织主页</b><span class="u">github.com/xmzf ↗</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ STACK ══════════════════════════════════════════════════════════ -->
+<section class="sec" id="stack">
+  <div class="wrap">
+    <div class="sec-head lift">
+      <span class="lbl n">04</span>
+      <div>
+        <h2>我们站在什么上面</h2>
+        <p>认证和模型网关是别人的项目。但用户身份在那层，模型调用也在那层——上面这一层才是我们的活。</p>
+      </div>
+    </div>
+
+    <div class="dep">
+      <div class="dep-row lift">
+        <span class="dep-k">L0 · 我们</span>
+        <span class="dep-name">XMZF Studio</span>
+        <span class="dep-logo"></span>
+        <span class="dep-go">顶层</span>
+      </div>
+      <a class="dep-row lift" data-d="90ms" href="https://rtstu.com" target="_blank" rel="noopener noreferrer">
+        <span class="dep-k">L1 · AUTH</span>
+        <span class="dep-name">热土工作室 RTStudio<small>统一认证与授权</small></span>
+        <span class="dep-logo"><img src="assets/rtstudio.png" alt="热土工作室 RTStudio" width="170" height="26" loading="lazy" /></span>
+        <span class="dep-go">rtstu.com ↗</span>
+      </a>
+      <a class="dep-row lift" data-d="180ms" href="https://www.uselunora.com" target="_blank" rel="noopener noreferrer">
+        <span class="dep-k">L2 · AI API</span>
+        <span class="dep-name">Lunora API<small>多模型统一网关</small></span>
+        <span class="dep-logo"><img src="assets/lunora.png" alt="Lunora API" width="170" height="26" loading="lazy" /></span>
+        <span class="dep-go">uselunora.com ↗</span>
+      </a>
+    </div>
+    <p class="dep-note lift" data-d="240ms">这也是我们做产品的顺序：先把底下两层选对，再在上面盖东西。地基错了，楼越高越危险。</p>
+  </div>
+</section>
+
+</main>
+
+<footer class="ftr" id="connect">
+  <div class="wrap">
+    <div class="ftr-top lift">
+      <h2>Say <em>hello.</em></h2>
+      <div class="ftr-mail">
+        <a href="mailto:hi@xmzf.space">hi@xmzf.space</a>
+        <p>项目 · 合作 · 野生想法</p>
+      </div>
+    </div>
+
+    <div class="ftr-list">
+      <a href="https://b23.tv/89YwEi4" target="_blank" rel="noopener noreferrer"><span class="k">01</span><b>Bilibili</b><span class="u">@XMZFsTudio ↗</span></a>
+      <a href="https://x.com/xmzfstudio?s=21" target="_blank" rel="noopener noreferrer"><span class="k">02</span><b>X / Twitter</b><span class="u">@xmzfstudio ↗</span></a>
+      <a href="https://www.youtube.com/@XMZFstudio" target="_blank" rel="noopener noreferrer"><span class="k">03</span><b>YouTube</b><span class="u">@XMZFstudio ↗</span></a>
+      <button id="wc" type="button"><span class="k">04</span><b>微信公众号</b><span class="u" id="wcTag">XMZFSTUDIO · 点击复制</span></button>
+    </div>
+
+    <div class="ftr-bar">
+      <span>© 2024—2026 XMZF STUDIO</span>
+      <nav>
+        <a href="#top">回到顶部</a>
+        <a href="index-en.html">English</a>
+        <a href="https://github.com/xmzf" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<script>
+(() => {
+  document.documentElement.classList.add('js');
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ── probe surface: stills must be reproducible, not lucky ─────────── */
+  window.__settle = () => {
+    if (window.__pump) window.__pump(3);
+    document.getAnimations().forEach(a => {
+      try {
+        if (a.effect?.getComputedTiming?.().iterations === Infinity) { a.currentTime = 2500; a.pause(); }
+        else a.finish();
+      } catch (_) {}
+    });
+  };
+  window.__pump = (n = 3) => {
+    for (let i = 0; i < n; i++) tick(performance.now() + i * 16);
+    return true;
+  };
+  window.__probe = () => {
+    const ws = [...document.querySelectorAll('.w')];
+    const boxes = ws.map(w => w.getBoundingClientRect());
+    return {
+      words: ws.length,
+      churn: boxes.filter(b => b.width > 0 && b.height > 0).length,
+      frameW: Math.round(frame.getBoundingClientRect().width),
+      measure: rMeasure.textContent,
+      state: rState.textContent,
+    };
+  };
+
+  const $ = s => document.querySelector(s);
+  const hdr = $('#hdr'), burger = $('#burger'), nav = $('#nav');
+  const gLines = $('#gLines'), gCols = document.querySelector('.grid-cols');
+  const frame = $('#frame'), fMsg = $('#fMsg'), deskEl = $('.desk');
+  const rMeasure = $('#rMeasure'), rBar = $('#rBar'), rState = $('#rState');
+
+  const closeNav = () => { nav.classList.remove('open'); burger.setAttribute('aria-expanded', 'false'); };
+  burger.addEventListener('click', () => {
+    const open = nav.classList.toggle('open');
+    burger.setAttribute('aria-expanded', String(open));
+  });
+  nav.addEventListener('click', e => { if (e.target.closest('a')) closeNav(); });
+  addEventListener('keydown', e => { if (e.key === 'Escape') closeNav(); });
+
+  /* ══ THE DESK — a pointer-driven measure ═════════════════════════════
+     The frame is the readout: its width IS the measure being set, so the
+     rule is guessable from two frames. Filter is 1-exp(-dt/TAU) — frame-rate
+     independent, no spring, nothing following anything. It arrives, it stops. */
+  const hero = $('.hero'), heroType = $('.type');
+  const typeH = () => heroType.offsetHeight;
+
+  let tx = 0, cx = 0;              // target / current pointer x, −1..1
+  let raf = 0, lastT = performance.now();
+  let prevP = -1;                   // previous frame's progress, for the idle test
+
+  const cornerTL = $('#cornerTL');
+  const CODES = [
+    { c: 'COL 01 — 12', s: '字距 20 → −3%' },
+    { c: 'COL 03 — 09', s: '行位 4.0 → 3.6' },
+    { c: 'COL 05 — 06', s: '字重 400 → 600' },
+    { c: 'COL 07 — 04', s: '已锁定 · SET' },
+  ];
+
+  addEventListener('pointermove', e => {
+    if (e.pointerType === 'touch') return;
+    tx = (e.clientX / innerWidth) * 2 - 1;
+    start();
+  }, { passive: true });
+
+  function tick(now) {
+    const dt = Math.min(50, now - lastT); lastT = now;
+    // handfeel §7: exponential approach — frame-rate independent, no spring,
+    // nothing following anything. It arrives and it stops.
+    cx += (tx - cx) * (1 - Math.exp(-dt / 110));
+
+    const p = Math.max(0, Math.min(1, scrollY / Math.max(1, typeH())));
+
+    // the frame tightens and brightens as the type locks
+    const shrink = 1 - p * 0.34 - Math.abs(cx) * 0.05;
+    const inset = 50 * (1 - shrink);
+    frame.style.transform = `translateY(-50%) translateX(${inset.toFixed(2)}%) scaleX(${shrink.toFixed(4)})`;
+    frame.style.opacity = (0.45 + p * 0.55).toFixed(3);
+
+    const stage = Math.min(3, Math.floor(p * 4));
+    const code = CODES[stage];
+    fMsg.textContent = code.s;
+    if (cornerTL.textContent !== code.c) cornerTL.textContent = code.c;
+    rMeasure.textContent = Math.round(1400 * shrink) + ' px';
+    rBar.style.width = (p * 100).toFixed(1) + '%';
+    rState.textContent = p > 0.985 ? 'SET' : p > 0.02 ? 'SETTING' : 'UNSET';
+
+    // idle test uses LAST frame's progress, not this frame's
+    const moving = Math.abs(tx - cx) > 0.0015 || Math.abs(p - prevP) > 0.0004;
+    prevP = p;
+    if (moving) raf = requestAnimationFrame(tick);
+    else { raf = 0; }
+  }
+
+  function start() {
+    if (raf) return;
+    lastT = performance.now();
+    prevP = -1;                      // force one more frame after any idle period
+    raf = requestAnimationFrame(tick);
+  }
+
+  /* ── AMBIENT · scroll speed stirs the grid, and it settles ────────────
+     energy dissipation, not a timeline: agitation = 1 − filtered|Δscroll|,
+     so a flick visibly sloshes and stopping lets it come to rest. Reverses
+     because it is a function of speed, not of position. */
+  let agitation = 0, lastY = scrollY, settleRaf = 0, gridOn = false;
+
+  const stir = () => {
+    const dy = Math.abs(scrollY - lastY); lastY = scrollY;
+    agitation = Math.min(1, agitation + dy / 90);
+    gLines.style.opacity = gridOn ? (0.55 + agitation * 0.45).toFixed(3) : '';
+    gCols.style.opacity  = gridOn ? (0.42 + agitation * 0.5).toFixed(3)  : '';
+    clearTimeout(settleRaf);
+    settleRaf = setTimeout(relax, 90);
+  };
+  const relax = () => {
+    const step = () => {
+      agitation *= 0.9;
+      if (agitation < 0.004) { agitation = 0; applyOpacity(); return; }
+      applyOpacity();
+      requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  };
+  const applyOpacity = () => {
+    gLines.style.opacity = gridOn ? (0.55 + agitation * 0.45).toFixed(3) : '';
+    gCols.style.opacity  = gridOn ? (0.42 + agitation * 0.5).toFixed(3)  : '';
+  };
+
+  let queued = false;
+  const onScroll = () => {
+    queued = false;
+    hdr.classList.toggle('solid', scrollY > 8);
+    const h = hero.offsetHeight;
+    // the desk belongs to the hero; once the type is set it has said its part
+    const past = scrollY > h - innerHeight * 0.85;
+    deskEl.style.opacity = past ? Math.max(0, 1 - (scrollY - (h - innerHeight * 0.85)) / (innerHeight * 0.5)).toFixed(3) : '1';
+    gridOn = scrollY > h * 0.15 && !past;
+    gLines.classList.toggle('on', gridOn);
+    gCols.classList.toggle('on', gridOn);
+    applyOpacity();
+    start();
+  };
+  addEventListener('scroll', () => {
+    if (!queued) { queued = true; requestAnimationFrame(onScroll); }
+    stir();
+  }, { passive: true });
+  onScroll();
+
+  /* scroll-spy — a long page needs a map */
+  const secs = [...document.querySelectorAll('main > section[id]')];
+  const links = [...nav.querySelectorAll('a[href^="#"]')];
+  const spy = () => {
+    let active = '';
+    for (const s of secs) if (s.getBoundingClientRect().top <= innerHeight * 0.4) active = s.id;
+    links.forEach(a => a.toggleAttribute('data-on', !!active && a.getAttribute('href') === '#' + active));
+  };
+  addEventListener('scroll', () => { if (!queued) { queued = true; requestAnimationFrame(spy); } }, { passive: true });
+
+  /* Arrivals below the fold. Content is already there; this only plays on top. */
+  if (!reduced) {
+    const io = new IntersectionObserver(es => es.forEach(e => {
+      if (!e.isIntersecting) return;
+      e.target.classList.add('seen');
+      io.unobserve(e.target);
+    }), { threshold: 0.06, rootMargin: '0px 0px -4% 0px' });
+    document.querySelectorAll('.lift:not([data-d])').forEach(el => io.observe(el));
+  }
+
+  const wc = $('#wc'), tag = $('#wcTag'), orig = tag.textContent;
+  wc.addEventListener('click', async () => {
+    const prev = tag.textContent;
+    try { await navigator.clipboard.writeText('XMZFSTUDIO'); tag.textContent = '已复制 ✓'; }
+    catch { tag.textContent = 'XMZFSTUDIO'; }
+    setTimeout(() => { tag.textContent = prev === orig ? orig : prev; }, 1900);
+  });
+})();
+</script>
 </body>
 </html>
