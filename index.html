@@ -4,18 +4,18 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="theme-color" content="#0d0d0c" />
-<title>XMZF Studio — 把想法排成能用的东西</title>
+<title>XMZF Studio</title>
 <meta name="description" content="XMZF Studio — 广州的独立创意工作室。定位、结构、制作、维护；以及一个 AI 产品工作室。" />
 <link rel="canonical" href="https://xmzf.space/" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://xmzf.space/" />
 <meta property="og:site_name" content="XMZF Studio" />
 <meta property="og:title" content="XMZF Studio" />
-<meta property="og:description" content="把还没成形的东西，排成一个能被用起来的东西。" />
+<meta property="og:description" content="网站、品牌、交互。广州，远程。" />
 <meta property="og:image" content="https://xmzf.space/og.png" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="XMZF Studio" />
-<meta name="twitter:description" content="把还没成形的东西，排成一个能被用起来的东西。" />
+<meta name="twitter:description" content="网站、品牌、交互。广州，远程。" />
 <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 
 <style>
@@ -120,7 +120,7 @@ main,.hdr,.ftr{position:relative;z-index:1}
    tightens to its final tracking, straightens and locks. Scroll back up
    and it unlocks. The progress frame below shows the measure being set.  */
 .hero{position:relative;padding-top:clamp(104px,15vh,168px);min-height:340vh}
-.hero-flow{position:relative;z-index:3;margin-top:-100svh;padding-top:40svh;padding-bottom:16vh}
+.hero-flow{position:relative;z-index:3;margin-top:-100svh;padding-top:52svh;padding-bottom:16vh}
 .hero-lede{
   font-family:var(--mono);font-size:.6875rem;letter-spacing:.18em;
   text-transform:uppercase;color:var(--fg-mute);
@@ -175,11 +175,11 @@ main,.hdr,.ftr{position:relative;z-index:1}
 /* ── the desk: the live grid the words are being set against ─────────── */
 .desk{
   position:sticky;top:0;height:100svh;z-index:1;
-  padding:clamp(96px,13vh,140px) 0 clamp(20px,3vh,32px);
+  padding:clamp(150px,19vh,210px) 0 clamp(20px,3vh,32px);
   pointer-events:none;
 }
 .desk > .wrap{display:grid;grid-template-rows:auto 1fr;height:100%;min-height:0}
-.desk-top{display:flex;justify-content:space-between;gap:2rem;align-items:baseline}
+.desk-top{display:flex;justify-content:space-between;gap:2rem;align-items:baseline;padding-top:.6rem}
 .readout{display:grid;gap:.32rem;font-family:var(--mono);font-size:.6875rem;letter-spacing:.1em}
 .readout .v{color:var(--set);font-size:.8125rem}
 .readout .bar{width:min(30vw,220px);height:2px;background:var(--rule);margin-top:.2rem;overflow:hidden}
@@ -576,10 +576,10 @@ main,.hdr,.ftr{position:relative;z-index:1}
   <button class="burger" id="burger" aria-label="菜单" aria-expanded="false" aria-controls="nav"><i></i><i></i></button>
   <nav id="nav" aria-label="主导航">
     <a href="#studio">工作室</a>
-    <a href="#process">工序</a>
-    <a href="#work">方向</a>
+    <a href="#process">流程</a>
+    <a href="#work">做什么</a>
     <a href="#vai">vAI</a>
-    <a href="#stack">依赖</a>
+    <a href="#stack">技术依赖</a>
     <a href="#connect">联系</a>
     <a href="index-en.html">EN</a>
   </nav>
@@ -618,10 +618,10 @@ main,.hdr,.ftr{position:relative;z-index:1}
         <span class="live">接活中</span>
       </p>
 
-      <h1 class="type" aria-label="把想法，排成能用的东西"><span class="line a"><span class="w t">把</span><span class="w t">想法，</span></span><span class="line b"><span class="w t">排成</span><span class="w t">能用的</span></span><span class="line c"><span class="w t acc">东西。</span></span></h1>
+      <h1 class="type" aria-label="先把结构排好，再谈好看"><span class="line a"><span class="w t">先把</span><span class="w t">结构</span></span><span class="line b"><span class="w t">排好，</span><span class="w t">再谈</span></span><span class="line c"><span class="w t acc">好看。</span></span></h1>
 
       <div class="hero-close">
-        <p class="hero-close-lede">我们不卖「好看」。我们把还没成形的东西，排成一个能被用起来的东西——<b>先有结构，再有样式，最后才谈好看。</b>设计稿即代码，上线之后还在维护。</p>
+        <p class="hero-close-lede">网站、品牌、交互。设计稿就是代码，写完就能上线。广州，远程协作。</p>
         <div class="acts">
           <a class="act act--on" href="#process">看工序 <i aria-hidden="true">↓</i></a>
           <a class="act" href="https://vai.xmzf.space" target="_blank" rel="noopener noreferrer">进入 vAI <i aria-hidden="true">↗</i></a>
@@ -635,11 +635,11 @@ main,.hdr,.ftr{position:relative;z-index:1}
 <!-- ══ STUDIO — as fields, not as adjectives ═════════════════════════ -->
 <section class="sec wrap" id="studio">
   <dl class="spec lift">
-    <div class="spec-row"><dt>我们是谁</dt><dd>一支小到每个人都能被叫到名字的团队</dd></div>
-    <div class="spec-row"><dt>在哪</dt><dd>广州，远程工作，<em>时区不是问题</em></dd></div>
-    <div class="spec-row"><dt>做什么</dt><dd>网站 · 品牌 · 交互 · 一个 AI 产品工作室</dd></div>
-    <div class="spec-row"><dt>怎么合作</dt><dd>先聊清楚要解决什么，<em>再报价</em></dd></div>
-    <div class="spec-row"><dt>现在</dt><dd><span class="dot"></span>接活中</dd></div>
+    <div class="spec-row"><dt>团队</dt><dd>小团队</dd></div>
+    <div class="spec-row"><dt>地点</dt><dd>广州，远程</dd></div>
+    <div class="spec-row"><dt>业务</dt><dd>网站 · 品牌 · 交互</dd></div>
+    <div class="spec-row"><dt>流程</dt><dd>先聊需求，再报价</dd></div>
+    <div class="spec-row"><dt>状态</dt><dd><span class="dot"></span>接活中</dd></div>
   </dl>
 </section>
 
@@ -648,45 +648,45 @@ main,.hdr,.ftr{position:relative;z-index:1}
   <div class="sec-head lift">
     <span class="lbl n">01</span>
     <div>
-      <h2>四步，按顺序</h2>
-      <p>不是四个卖点，是一条真的工序。跳步的活我们会跟你商量；商量不通，就不接。</p>
+      <h2>流程</h2>
+      <p>从聊需求到上线，四个步骤。</p>
     </div>
   </div>
 
   <div class="chain">
     <article class="stage lift">
       <span class="stage-i n">01</span>
-      <h3><small>Position</small>定位</h3>
+      <h3><small>01</small>需求</h3>
       <div class="stage-b">
-        <p>搞清楚这东西是给谁用的、解决什么。答不上来就先别画——这一步不做，后面全是返工。</p>
-        <dl><div><dt>产出</dt><dd>一句话定位</dd></div><div><dt>工期</dt><dd>占全项目 15%</dd></div></dl>
+        <p>先弄清楚要做给谁看，想解决什么。</p>
+        
       </div>
     </article>
 
     <article class="stage lift" data-d="70ms">
       <span class="stage-i n">02</span>
-      <h3><small>Structure</small>结构</h3>
+      <h3><small>02</small>结构</h3>
       <div class="stage-b">
-        <p>信息怎么排、路径怎么走、内容先说什么。这些决定在画第一根线之前，不在配色之后。</p>
-        <dl><div><dt>产出</dt><dd>线框与站点图</dd></div><div><dt>卡点</dt><dd>客户改需求</dd></div></dl>
+        <p>决定页面怎么排，内容放在哪，先说什么后说什么。</p>
+        
       </div>
     </article>
 
     <article class="stage lift" data-d="140ms">
       <span class="stage-i n">03</span>
-      <h3><small>Make</small>制作</h3>
+      <h3><small>03</small>制作</h3>
       <div class="stage-b">
-        <p>设计稿就是代码。我们不画完再切图——你看到的就是最后跑的，且能在真机上验证。</p>
-        <dl><div><dt>产出</dt><dd>可上线的站点</dd></div><div><dt>原则</dt><dd>不做假界面</dd></div></dl>
+        <p>设计稿就是代码，没有单独的还原环节。</p>
+        
       </div>
     </article>
 
     <article class="stage lift" data-d="210ms">
       <span class="stage-i n">04</span>
-      <h3><small>Keep</small>维护</h3>
+      <h3><small>04</small>维护</h3>
       <div class="stage-b">
-        <p>上线不是结束。改了文案、加了一页功能，或者只是想找人聊聊怎么改更好，都回来找我们。</p>
-        <dl><div><dt>承诺</dt><dd>长期可维护</dd></div><div><dt>形式</dt><dd>按次 / 包年</dd></div></dl>
+        <p>上线之后继续改，也欢迎回来聊。</p>
+        
       </div>
     </article>
   </div>
@@ -699,28 +699,28 @@ main,.hdr,.ftr{position:relative;z-index:1}
     <div class="sec-head lift">
       <span class="lbl n">02</span>
       <div>
-        <h2>三个方向</h2>
-        <p>一个人可以同时做这三件事，因为它们本来就是一件事：让东西被看见、被记住、被用起来。</p>
+        <h2>做什么</h2>
+        <p>三件事通常一起做。</p>
       </div>
     </div>
 
     <a class="lane lift" href="#connect">
       <span class="lane-i n">A</span>
       <h3>网站与品牌官网</h3>
-      <p>从信息架构到上线部署。做一个真的能代表你、也能带来客户的门面。</p>
+      <p>从信息架构到部署上线。</p>
       <span class="lane-x">聊项目 ↗</span>
     </a>
     <div class="lane lift" data-d="80ms">
       <span class="lane-i n">B</span>
       <h3>交互体验</h3>
-      <p>动效、叙事、产品界面，以及点击之间的节奏。手感是可以被设计出来的。</p>
-      <span class="lane-x">主力方向</span>
+      <p>动效、叙事、产品界面。</p>
+      <span class="lane-x">常规</span>
     </div>
     <div class="lane lift" data-d="160ms">
       <span class="lane-i n">C</span>
       <h3>品牌视觉</h3>
-      <p>字标、配色、基础识别，以及它们走进真实世界的样子——名片、屏幕、说明书。</p>
-      <span class="lane-x">按需</span>
+      <p>字标、配色、基础识别，以及它们的延展应用。</p>
+      <span class="lane-x">常规</span>
     </div>
   </div>
 </section>
@@ -729,9 +729,9 @@ main,.hdr,.ftr{position:relative;z-index:1}
 <section class="sec wrap" id="vai">
   <div class="vai">
     <div class="lift">
-      <p class="lbl" style="margin-bottom:1.4rem">03 — 旗下工作室</p>
+      <p class="lbl" style="margin-bottom:1.4rem">03 — vAI</p>
       <p class="vai-mark" aria-hidden="true">v<em>AI</em></p>
-      <p class="lede">一群年轻开发者。做真会有人用的工具，也研究还没答案的问题——研究不摆出来给人看。</p>
+      <p class="lede">旗下的 AI 产品工作室。做工具，也做研究。</p>
     </div>
     <div class="lift" data-d="90ms">
       <div class="links">
@@ -749,8 +749,8 @@ main,.hdr,.ftr{position:relative;z-index:1}
     <div class="sec-head lift">
       <span class="lbl n">04</span>
       <div>
-        <h2>我们站在什么上面</h2>
-        <p>认证和模型网关是别人的项目。但用户身份在那层，模型调用也在那层——上面这一层才是我们的活。</p>
+        <h2>技术依赖</h2>
+        <p>两项工作建立在下面两层之上。</p>
       </div>
     </div>
 
@@ -774,7 +774,7 @@ main,.hdr,.ftr{position:relative;z-index:1}
         <span class="dep-go">uselunora.com ↗</span>
       </a>
     </div>
-    <p class="dep-note lift" data-d="240ms">这也是我们做产品的顺序：先把底下两层选对，再在上面盖东西。地基错了，楼越高越危险。</p>
+    <p class="dep-note lift" data-d="240ms">用户登录和模型调用走的是这两层。我们做上面那层。</p>
   </div>
 </section>
 
@@ -783,10 +783,10 @@ main,.hdr,.ftr{position:relative;z-index:1}
 <footer class="ftr" id="connect">
   <div class="wrap">
     <div class="ftr-top lift">
-      <h2>Say <em>hello.</em></h2>
+      <h2>联系</h2>
       <div class="ftr-mail">
         <a href="mailto:hi@xmzf.space">hi@xmzf.space</a>
-        <p>项目 · 合作 · 野生想法</p>
+        <p>项目与合作</p>
       </div>
     </div>
 
